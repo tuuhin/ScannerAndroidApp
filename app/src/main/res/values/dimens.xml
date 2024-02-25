@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <dimen name="space_4">4dp</dimen>
+  <dimen name="scaffold_padding">12dp</dimen>
+  <dimen name="card_internal_padding">12dp</dimen>
+  <dimen name="space_8">8dp</dimen>
+  <dimen name="preview_image_max_dimen">52dp</dimen>
+  <dimen name="camera_controls_height">120dp</dimen>
+  <dimen name="camera_controls_padding_horizontal">20dp</dimen>
+  <dimen name="capture_box_min_dim">160dp</dimen>
+</resources>

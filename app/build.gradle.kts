@@ -66,6 +66,8 @@ dependencies {
 	//dagger hilt
 	implementation("com.google.dagger:hilt-android:2.50")
 	ksp("com.google.dagger:hilt-android-compiler:2.50")
+	//lifecycle-runtime-compose
+	implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
 	//on device ml
 	implementation("com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0")
 	implementation("com.google.android.gms:play-services-mlkit-image-labeling:16.0.8")
@@ -73,6 +75,15 @@ dependencies {
 	implementation("androidx.camera:camera-camera2:1.3.1")
 	implementation("androidx.camera:camera-lifecycle:1.3.1")
 	implementation("androidx.camera:camera-mlkit-vision:1.4.0-alpha04")
+	//paging
+	implementation("androidx.paging:paging-runtime-ktx:3.2.1")
+	implementation("androidx.paging:paging-compose:3.2.1")
+	//coil
+	implementation("io.coil-kt:coil-compose:2.5.0")
+	//splash
+	implementation("androidx.core:core-splashscreen:1.0.1")
+	//icons
+	implementation("androidx.compose.material:material-icons-extended:1.6.2")
 	//test
 	testImplementation("junit:junit:4.13.2")
 	// test-android

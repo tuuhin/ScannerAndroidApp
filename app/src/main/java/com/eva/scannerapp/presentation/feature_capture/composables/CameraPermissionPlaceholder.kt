@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.CameraAlt
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -17,9 +15,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.eva.scannerapp.R
 import com.eva.scannerapp.presentation.util.preview.PreviewLightDarkApi33
@@ -31,9 +29,10 @@ fun CameraPermissionPlaceHolder(
 	modifier: Modifier = Modifier,
 ) {
 	Column(
-		verticalArrangement = Arrangement.spacedBy(space = dimensionResource(id = R.dimen.space_8)),
+		verticalArrangement = Arrangement
+			.spacedBy(space = dimensionResource(id = R.dimen.space_8)),
+		horizontalAlignment = Alignment.CenterHorizontally,
 		modifier = modifier.padding(horizontal = 20.dp),
-		horizontalAlignment = Alignment.CenterHorizontally
 	) {
 		Text(
 			text = stringResource(id = R.string.request_read_camera_perms_text),
@@ -48,13 +47,12 @@ fun CameraPermissionPlaceHolder(
 				containerColor = MaterialTheme.colorScheme.secondary,
 				contentColor = MaterialTheme.colorScheme.onSecondary
 			),
-			contentPadding = PaddingValues(
-				horizontal = ButtonDefaults.ContentPadding
-					.calculateRightPadding(LayoutDirection.Ltr),
-				vertical = 12.dp
-			)
+			contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp)
 		) {
-			Icon(imageVector = Icons.Outlined.CameraAlt, contentDescription = null)
+			Icon(
+				painter = painterResource(id = R.drawable.ic_camera),
+				contentDescription = null
+			)
 			Text(
 				text = stringResource(id = R.string.allow_access_text),
 				style = MaterialTheme.typography.titleMedium,

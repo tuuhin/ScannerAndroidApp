@@ -17,11 +17,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Camera
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -30,9 +27,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
+import com.eva.scannerapp.R
 import com.eva.scannerapp.presentation.util.preview.PreviewApi33
 import com.eva.scannerapp.ui.theme.ScannerAppTheme
 
@@ -44,6 +44,8 @@ fun AnimatedCaptureButton(
 	rippleAnimationSpec: DurationBasedAnimationSpec<Float> = tween(1200, 400, EaseInOut),
 	colorAnimationSpec: DurationBasedAnimationSpec<Color> = tween(1200, 400, EaseInOut),
 	interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+	color: Color = Color.White,
+	shape: Shape = CircleShape,
 	content: @Composable () -> Unit,
 ) {
 	val density = LocalDensity.current
@@ -51,6 +53,9 @@ fun AnimatedCaptureButton(
 	val indication = rememberRipple()
 
 	val infiniteTransition = rememberInfiniteTransition(label = "Infinite transition")
+
+	val rippleColorStart = color.copy(alpha = .35f)
+	val rippleColorEnd = color.copy(alpha = .02f)
 
 	val boxSize by infiniteTransition.animateFloat(
 		initialValue = with(density) { CaptureButtonDefaults.rippleBoxSizeStart.toPx() },
@@ -68,13 +73,11 @@ fun AnimatedCaptureButton(
 
 	val rippleColor by infiniteTransition.animateColor(
 		initialValue = run {
-			if (isEnabled)
-				CaptureButtonDefaults.rippleColorStart
+			if (isEnabled) rippleColorStart
 			else Color.Transparent
 		},
 		targetValue = run {
-			if (isEnabled)
-				CaptureButtonDefaults.rippleColorEnd
+			if (isEnabled) rippleColorEnd
 			else Color.Transparent
 		},
 		animationSpec = infiniteRepeatable(
@@ -103,18 +106,32 @@ fun AnimatedCaptureButton(
 		// border box
 		Box(
 			modifier = Modifier
-				.size(CaptureButtonDefaults.borderBoxSize)
-				.border(2.dp, Color.White, shape = CircleShape)
-				.background(Color.White.copy(alpha = .3f), shape = CircleShape)
+				.size(size = CaptureButtonDefaults.borderBoxSize)
+				.border(
+					width = 2.dp,
+					color = color,
+					shape = shape
+				)
+				.background(
+					color = rippleColorStart,
+					shape = shape,
+				)
 		)
 		// clickable button
 		Box(
 			modifier = Modifier
-				.size(CaptureButtonDefaults.contentBoxSize)
-				.clip(CircleShape)
-				.background(Color.White)
-				.indication(interactionSource, indication = indication)
-				.clickable(role = Role.Button, onClick = onClick, enabled = isEnabled),
+				.size(size = CaptureButtonDefaults.contentBoxSize)
+				.clip(shape = shape)
+				.background(color = color)
+				.indication(
+					interactionSource = interactionSource,
+					indication = indication
+				)
+				.clickable(
+					role = Role.Button,
+					onClick = onClick,
+					enabled = isEnabled
+				),
 			contentAlignment = Alignment.Center
 		) {
 			content()
@@ -127,17 +144,16 @@ private object CaptureButtonDefaults {
 	val rippleBoxSize = 120.dp
 	val borderBoxSize = 85.dp
 	val contentBoxSize = 70.dp
-	val rippleColorStart = Color.White.copy(alpha = .35f)
-	val rippleColorEnd = Color.White.copy(alpha = .02f)
-
 }
 
 @PreviewApi33
 @Composable
 fun CaptureButtonPreview() = ScannerAppTheme {
 	AnimatedCaptureButton(onClick = { }) {
-		Surface {
-			Icon(imageVector = Icons.Default.Camera, contentDescription = null)
-		}
+		Icon(
+			painter = painterResource(id = R.drawable.ic_capture),
+			contentDescription = null,
+			tint = Color.Black
+		)
 	}
 }

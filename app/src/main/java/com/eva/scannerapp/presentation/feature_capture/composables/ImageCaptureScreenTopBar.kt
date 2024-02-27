@@ -1,14 +1,10 @@
 package com.eva.scannerapp.presentation.feature_capture.composables
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.FlashOff
-import androidx.compose.material.icons.filled.FlashOn
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -17,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.eva.scannerapp.R
@@ -27,40 +24,42 @@ import com.eva.scannerapp.ui.theme.ScannerAppTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ImageCaptureScreenTopBar(
+	isPermsEnabled: Boolean,
 	isFlashEnabled: Boolean,
 	modifier: Modifier = Modifier,
 	onToggleFlash: () -> Unit = {},
-	colors: TopAppBarColors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+) {
+	var isMenuActive by remember { mutableStateOf(false) }
+
+	val colors = if (isPermsEnabled) TopAppBarDefaults.centerAlignedTopAppBarColors(
 		containerColor = Color.Transparent,
 		titleContentColor = Color.White,
 		navigationIconContentColor = Color.White,
 		actionIconContentColor = Color.White
-	),
-) {
-
-	var showMenu by remember { mutableStateOf(false) }
+	) else TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = Color.Transparent)
 
 	CenterAlignedTopAppBar(
 		title = { Text(text = stringResource(id = R.string.app_name)) },
 		navigationIcon = {
-			IconButton(
-				onClick = onToggleFlash,
-			) {
-				if (isFlashEnabled) Icon(
-					imageVector = Icons.Default.FlashOn,
-					contentDescription = null
-				)
-				else Icon(
-					imageVector = Icons.Default.FlashOff,
-					contentDescription = null
-				)
-			}
+			if (isPermsEnabled)
+				IconButton(
+					onClick = onToggleFlash,
+				) {
+					if (isFlashEnabled) Icon(
+						painter = painterResource(id = R.drawable.ic_flash_on),
+						contentDescription = stringResource(id = R.string.flash_on_desc)
+					)
+					else Icon(
+						painter = painterResource(id = R.drawable.ic_no_flash),
+						contentDescription = stringResource(id = R.string.flash_off_desc)
+					)
+				}
 		},
 		actions = {
 			MenuDropDownOptionButton(
-				isExpanded = showMenu,
-				onClick = { showMenu = !showMenu },
-				onDismissRequest = { showMenu = false },
+				isExpanded = isMenuActive,
+				onClick = { isMenuActive = !isMenuActive },
+				onDismissRequest = { isMenuActive = false },
 			)
 		},
 		colors = colors,
@@ -68,12 +67,14 @@ fun ImageCaptureScreenTopBar(
 	)
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @PreviewApi33
 @Composable
 fun ImageCaptureScreenTopBarPreview(
 	@PreviewParameter(BooleanPreviewParams::class)
 	isFlashEnabled: Boolean
 ) = ScannerAppTheme {
-	ImageCaptureScreenTopBar(isFlashEnabled = isFlashEnabled)
+	ImageCaptureScreenTopBar(
+		isPermsEnabled = true,
+		isFlashEnabled = isFlashEnabled
+	)
 }

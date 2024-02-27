@@ -19,6 +19,8 @@ fun AndroidPreviewView(
 	viewConstraints: PreviewView.() -> Unit = {},
 ) {
 	DisposableEffect(lifecycleOwner, cameraController) {
+		// unbind the controller
+		cameraController.unbind()
 		// bind the controller to lifecycle
 		cameraController.bindToLifecycle(lifecycleOwner)
 		onDispose {

@@ -50,7 +50,7 @@ fun CameraControls(
 				modifier = Modifier
 					.wrapContentHeight()
 					.background(
-						color = Color.Black.copy(alpha = .45f),
+						color = Color.DarkGray.copy(alpha = .75f),
 						shape = MaterialTheme.shapes.large
 					)
 			) {
@@ -70,20 +70,19 @@ fun CameraControls(
 				visible = imageState.isAvailable,
 				modifier = Modifier.align(Alignment.CenterStart)
 			) {
+
 				PreviewPreviousImage(
 					imageUri = imageState.image?.imageUri,
-					modifier = Modifier
 				)
 			}
 			AnimatedCaptureButton(
 				isEnabled = isEnabled,
 				onClick = onImageCapture,
-				modifier = Modifier
-					.align(Alignment.Center)
+				modifier = Modifier.align(Alignment.Center)
 			) {
 				Icon(
 					painter = painterResource(id = R.drawable.ic_capture),
-					contentDescription = "Camera Button",
+					contentDescription = stringResource(id = R.string.capture_icon__des),
 					tint = Color.Black
 				)
 			}

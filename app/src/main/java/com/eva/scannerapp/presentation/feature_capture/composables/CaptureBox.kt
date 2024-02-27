@@ -37,9 +37,8 @@ fun CaptureBox(
 	borderStroke: BorderStroke = BorderStroke(3.dp, Color.White),
 ) {
 	val localDensity = LocalDensity.current
-	var boxSize by remember {
-		mutableStateOf(IntSize.Zero)
-	}
+
+	var boxSize by remember { mutableStateOf(IntSize.Zero) }
 
 	Box(
 		modifier = modifier

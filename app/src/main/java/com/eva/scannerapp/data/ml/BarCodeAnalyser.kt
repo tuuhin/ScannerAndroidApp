@@ -1,7 +1,8 @@
 package com.eva.scannerapp.data.ml
 
 import com.eva.scannerapp.data.mapper.toRecognizedModel
-import com.eva.scannerapp.domain.models.RecognizedBarcode
+import com.eva.scannerapp.domain.ml.MLModelAnalyzer
+import com.eva.scannerapp.domain.ml.models.RecognizedBarcode
 import com.eva.scannerapp.util.Resource
 import com.google.mlkit.common.MlKitException
 import com.google.mlkit.vision.barcode.BarcodeScanner
@@ -13,7 +14,7 @@ import kotlin.coroutines.resume
 
 class BarCodeAnalyser @Inject constructor(
 	private val scanner: BarcodeScanner
-) : ImageAnalyzer<List<RecognizedBarcode>> {
+) : MLModelAnalyzer<List<RecognizedBarcode>> {
 	override suspend fun analyseImage(image: InputImage): Resource<List<RecognizedBarcode>> {
 		return suspendCancellableCoroutine { cont ->
 			scanner.process(image).apply {

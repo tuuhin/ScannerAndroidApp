@@ -1,4 +1,4 @@
-package com.eva.scannerapp.domain.models
+package com.eva.scannerapp.domain.ml.util
 
 import com.google.mlkit.vision.barcode.common.Barcode
 

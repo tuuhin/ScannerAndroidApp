@@ -1,4 +1,4 @@
-package com.eva.scannerapp.domain.models
+package com.eva.scannerapp.domain.ml.util
 
 /**
  * A simple version of [android.graphics.Rect] in [android.graphics] library

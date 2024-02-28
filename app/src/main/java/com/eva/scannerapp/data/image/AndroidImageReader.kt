@@ -12,11 +12,11 @@ import android.provider.MediaStore
 import android.text.format.Formatter
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
-import com.eva.scannerapp.domain.image.FileReadPermissionNotFoundException
+import com.eva.scannerapp.domain.image.exceptions.FileReadPermissionNotFoundException
 import com.eva.scannerapp.domain.image.ImageFileReader
-import com.eva.scannerapp.domain.image.QueriedFileNotFoundException
-import com.eva.scannerapp.domain.models.ImageBucketModel
-import com.eva.scannerapp.domain.models.ImageDataModel
+import com.eva.scannerapp.domain.image.exceptions.QueriedFileNotFoundException
+import com.eva.scannerapp.domain.image.models.ImageBucketModel
+import com.eva.scannerapp.domain.image.models.ImageDataModel
 import com.eva.scannerapp.util.PagedResource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

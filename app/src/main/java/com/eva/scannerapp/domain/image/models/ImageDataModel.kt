@@ -1,4 +1,4 @@
-package com.eva.scannerapp.domain.models
+package com.eva.scannerapp.domain.image.models
 
 data class ImageDataModel(
 	val id: Long,

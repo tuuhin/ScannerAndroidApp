@@ -1,7 +1,7 @@
 package com.eva.scannerapp.data.mapper
 
 import android.graphics.Rect
-import com.eva.scannerapp.domain.models.BoundingRect
+import com.eva.scannerapp.domain.ml.util.BoundingRect
 
 fun Rect.toBoundingBox(): BoundingRect = BoundingRect(
 	left = left,

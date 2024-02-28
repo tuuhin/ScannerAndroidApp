@@ -1,6 +1,7 @@
 package com.eva.scannerapp.data.ml
 
-import com.eva.scannerapp.domain.models.RecognizedLabel
+import com.eva.scannerapp.domain.ml.MLModelAnalyzer
+import com.eva.scannerapp.domain.ml.models.RecognizedLabel
 import com.eva.scannerapp.util.Resource
 import com.google.mlkit.common.MlKitException
 import com.google.mlkit.vision.common.InputImage
@@ -12,7 +13,7 @@ import kotlin.coroutines.resume
 
 class ImageLabelAnalyser @Inject constructor(
 	private val imageLabeler: ImageLabeler
-) : ImageAnalyzer<List<RecognizedLabel>> {
+) : MLModelAnalyzer<List<RecognizedLabel>> {
 	override suspend fun analyseImage(image: InputImage): Resource<List<RecognizedLabel>> {
 		return suspendCancellableCoroutine { cont ->
 			imageLabeler.process(image)

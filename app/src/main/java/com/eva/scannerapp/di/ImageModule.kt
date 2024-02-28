@@ -5,7 +5,7 @@ import androidx.paging.Pager
 import com.eva.scannerapp.data.image.AndroidImageReader
 import com.eva.scannerapp.data.image.PagedImageReader
 import com.eva.scannerapp.domain.image.ImageFileReader
-import com.eva.scannerapp.domain.models.ImageDataModel
+import com.eva.scannerapp.domain.image.models.ImageDataModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

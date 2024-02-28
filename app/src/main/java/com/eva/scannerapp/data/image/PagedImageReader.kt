@@ -5,7 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.eva.scannerapp.domain.image.ImageFileReader
-import com.eva.scannerapp.domain.models.ImageDataModel
+import com.eva.scannerapp.domain.image.models.ImageDataModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

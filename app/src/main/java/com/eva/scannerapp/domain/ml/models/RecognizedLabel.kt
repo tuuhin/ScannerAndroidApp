@@ -1,4 +1,4 @@
-package com.eva.scannerapp.domain.models
+package com.eva.scannerapp.domain.ml.models
 
 data class RecognizedLabel(
 	val text: String,

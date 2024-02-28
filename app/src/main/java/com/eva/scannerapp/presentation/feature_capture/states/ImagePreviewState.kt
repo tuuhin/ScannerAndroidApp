@@ -1,6 +1,6 @@
 package com.eva.scannerapp.presentation.feature_capture.states
 
-import com.eva.scannerapp.domain.models.ImageDataModel
+import com.eva.scannerapp.domain.image.models.ImageDataModel
 
 data class ImagePreviewState(
 	val isLoading: Boolean = true,

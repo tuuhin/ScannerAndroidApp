@@ -1,6 +1,6 @@
 package com.eva.scannerapp.data.mapper
 
-import com.eva.scannerapp.domain.models.BarCodeTypes
+import com.eva.scannerapp.domain.ml.util.BarCodeTypes
 import com.google.mlkit.vision.barcode.common.Barcode
 
 val Barcode.domainType: BarCodeTypes

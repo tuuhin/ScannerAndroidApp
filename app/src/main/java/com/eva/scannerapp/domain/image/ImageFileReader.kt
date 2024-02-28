@@ -1,7 +1,7 @@
 package com.eva.scannerapp.domain.image
 
-import com.eva.scannerapp.domain.models.ImageBucketModel
-import com.eva.scannerapp.domain.models.ImageDataModel
+import com.eva.scannerapp.domain.image.models.ImageBucketModel
+import com.eva.scannerapp.domain.image.models.ImageDataModel
 import com.eva.scannerapp.util.PagedResource
 
 interface ImageFileReader {

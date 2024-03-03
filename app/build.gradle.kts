@@ -58,7 +58,7 @@ dependencies {
 	implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
 	implementation("androidx.activity:activity-compose:1.8.2")
 	//compose
-	implementation(platform("androidx.compose:compose-bom:2024.02.00"))
+	implementation(platform("androidx.compose:compose-bom:2024.02.01"))
 	implementation("androidx.compose.ui:ui")
 	implementation("androidx.compose.ui:ui-graphics")
 	implementation("androidx.compose.ui:ui-tooling-preview")
@@ -67,7 +67,13 @@ dependencies {
 	implementation("com.google.dagger:hilt-android:2.50")
 	ksp("com.google.dagger:hilt-android-compiler:2.50")
 	//lifecycle-runtime-compose
+	implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
 	implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
+	//navigation
+	implementation("io.github.raamcosta.compose-destinations:core:1.9.63")
+	implementation("io.github.raamcosta.compose-destinations:animations-core:1.9.50")
+	ksp("io.github.raamcosta.compose-destinations:ksp:1.9.63")
+	implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 	//on device ml
 	implementation("com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0")
 	implementation("com.google.android.gms:play-services-mlkit-image-labeling:16.0.8")
@@ -89,7 +95,7 @@ dependencies {
 	// test-android
 	androidTestImplementation("androidx.test.ext:junit:1.1.5")
 	androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-	androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
+	androidTestImplementation(platform("androidx.compose:compose-bom:2024.02.01"))
 	androidTestImplementation("androidx.compose.ui:ui-test-junit4")
 	//debug
 	debugImplementation("androidx.compose.ui:ui-tooling")

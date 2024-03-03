@@ -1,3 +1,18 @@
 <resources>
   <string name="app_name">ScannerApp</string>
+  <string name="select_image">Select with any Image</string>
+  <string name="request_read_image_perms_text">To search with your photos, allow access to your gallery</string>
+  <string name="allow_access_text">Allow Access</string>
+  <string name="request_read_camera_perms_text">To search allow camera access</string>
+  <string name="gallery_screen">Gallery Screen</string>
+  <string name="manage_permissions_text">Permissions</string>
+  <string name="settings_text">Settings</string>
+  <string name="bar_code_analyser">BarCode</string>
+  <string name="labels_analyser">Labels</string>
+  <string name="shutter_button_text">Tap the shutter button to analyse</string>
+  <string name="capture_icon__des">Capture Button</string>
+  <string name="flash_on_desc">Camera Flash On</string>
+  <string name="flash_off_desc">Camera Flash Off</string>
+  <string name="loading_more">Loading More…</string>
+  <string name="navigation_back">Arrow Back</string>
 </resources>

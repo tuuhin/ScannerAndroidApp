@@ -5,7 +5,4 @@ import com.eva.scannerapp.domain.image.models.ImageDataModel
 data class ImagePreviewState(
 	val isLoading: Boolean = true,
 	val image: ImageDataModel? = null,
-) {
-	val isAvailable: Boolean
-		get() = !isLoading && image != null
-}
+)

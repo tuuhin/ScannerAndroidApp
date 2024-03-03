@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface ImageReaderRepo {
 
-	val lastSavedImage: Flow<Resource<ImageDataModel>>
+	val lastSavedImage: Flow<Resource<ImageDataModel?>>
 }

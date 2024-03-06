@@ -10,4 +10,4 @@ data class RecognizedBarcode(
 	val rawString: String?,
 	val codeFormat: BarCodeFormat,
 	val rect: BoundingRect?,
-)
+) : RecognizedModel

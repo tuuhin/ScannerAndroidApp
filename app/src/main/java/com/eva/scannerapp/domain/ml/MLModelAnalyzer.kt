@@ -1,9 +1,9 @@
 package com.eva.scannerapp.domain.ml
 
-import com.eva.scannerapp.util.Resource
+import com.eva.scannerapp.domain.ml.models.RecognizedModel
 import com.google.mlkit.vision.common.InputImage
 
-interface MLModelAnalyzer<T> {
+interface MLModelAnalyzer<T : RecognizedModel> {
 
-	suspend fun analyseImage(image: InputImage): Resource<T>
+	suspend fun analyseImage(image: InputImage): MLResource<T>
 }

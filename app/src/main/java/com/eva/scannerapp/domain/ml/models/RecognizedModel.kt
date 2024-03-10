@@ -1,3 +1,5 @@
 package com.eva.scannerapp.domain.ml.models
 
-sealed interface RecognizedModel
+import android.graphics.Rect
+
+sealed class RecognizedModel(val bounding: Rect? = null)

@@ -4,7 +4,7 @@
   <string name="request_read_image_perms_text">To search with your photos, allow access to your gallery</string>
   <string name="allow_access_text">Allow Access</string>
   <string name="request_read_camera_perms_text">To search allow camera access</string>
-  <string name="gallery_screen">Gallery Screen</string>
+  <string name="gallery_screen">Select Item</string>
   <string name="manage_permissions_text">Permissions</string>
   <string name="settings_text">Settings</string>
   <string name="bar_code_analyser">BarCode</string>
@@ -15,4 +15,11 @@
   <string name="flash_off_desc">Camera Flash Off</string>
   <string name="loading_more">Loading More…</string>
   <string name="navigation_back">Arrow Back</string>
+  <string name="result_screen">Results Screen</string>
+  <string name="capturing_image">Capturing Image</string>
+  <string name="analysing_labels_sheet_title">Analyzing Labels…</string>
+  <string name="analysing_labels_sheet_desc">Recognising Images found in the camera image stream</string>
+  <string name="results_sheet_bar_code_title">BarCode Result…</string>
+  <string name="results_sheet_bar_code_desc">These are the results of the detected barcode</string>
+  <string name="read_media_images_partial_access">You have given access to only selected number of photos</string>
 </resources>

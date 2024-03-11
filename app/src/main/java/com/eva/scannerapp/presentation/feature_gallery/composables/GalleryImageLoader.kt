@@ -43,13 +43,13 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.eva.scannerapp.R
 import com.eva.scannerapp.domain.image.models.ImageDataModel
-import com.eva.scannerapp.presentation.util.ext.getImageBitmap
 import com.eva.scannerapp.presentation.util.preview.PreviewFakes
 import com.eva.scannerapp.ui.theme.ScannerAppTheme
+import com.eva.scannerapp.util.ext.getImageBitmap
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 
-private val throttleDuration = 800.milliseconds
+private val throttleDuration = 200.milliseconds
 
 @Composable
 fun GalleryImageLoader(

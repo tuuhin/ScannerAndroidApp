@@ -5,7 +5,9 @@ import com.eva.scannerapp.util.PagedResource
 
 interface ImageFileReader {
 
-	val isPermissionProvided: Boolean
+	val isFullReadPermissionGranted: Boolean
+
+	val isPartialReadAllowed: Boolean
 
 	suspend fun readImagesPaged(page: Int, pageSize: Int): PagedResource<ImageDataModel>
 

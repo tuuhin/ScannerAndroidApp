@@ -1,7 +1,5 @@
 package com.eva.scannerapp.presentation.feature_gallery.composables
 
-import android.Manifest
-import android.os.Build
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,17 +23,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.eva.scannerapp.R
-import com.eva.scannerapp.presentation.composables.CheckSinglePermissionButton
+import com.eva.scannerapp.presentation.feature_gallery.state.GalleryPermissionState
 import com.eva.scannerapp.ui.theme.ScannerAppTheme
 
 @Composable
 fun ReadPermissionsPlaceHolder(
-	onPermissionChanged: (Boolean) -> Unit,
+	onGalleryPerms: (GalleryPermissionState) -> Unit,
 	modifier: Modifier = Modifier,
 ) {
-	val permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-		Manifest.permission.READ_MEDIA_IMAGES else Manifest.permission.READ_EXTERNAL_STORAGE
-
 	Column(
 		verticalArrangement = Arrangement.spacedBy(space = dimensionResource(id = R.dimen.space_8)),
 		horizontalAlignment = Alignment.CenterHorizontally,
@@ -57,9 +52,8 @@ fun ReadPermissionsPlaceHolder(
 			style = MaterialTheme.typography.titleLarge,
 			textAlign = TextAlign.Center,
 		)
-		CheckSinglePermissionButton(
-			permission = permission,
-			isPermissionAllowed = onPermissionChanged,
+		ReadGalleryPermission(
+			onGalleryPermission = onGalleryPerms,
 			modifier = Modifier
 				.defaultMinSize(minWidth = dimensionResource(id = R.dimen.perms_button_min_width)),
 		) {
@@ -83,7 +77,7 @@ fun ReadPermissionsPlaceHolder(
 fun ReadPermissionsPlaceHolderPreview() = ScannerAppTheme {
 	Surface {
 		ReadPermissionsPlaceHolder(
-			onPermissionChanged = {},
+			onGalleryPerms = {},
 			modifier = Modifier.padding(vertical = 10.dp)
 		)
 	}

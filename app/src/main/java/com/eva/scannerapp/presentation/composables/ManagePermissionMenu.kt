@@ -1,4 +1,3 @@
-package com.eva.scannerapp.presentation.feature_capture.composables
 
 import android.content.Intent
 import android.net.Uri
@@ -24,15 +23,15 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
 import com.eva.scannerapp.R
-import com.eva.scannerapp.presentation.util.preview.PreviewLightDarkApi33
 import com.eva.scannerapp.ui.theme.ScannerAppTheme
 
 @Composable
-fun MenuDropDownOptionButton(
+fun ManagePermissionMenu(
 	isExpanded: Boolean,
 	onClick: () -> Unit,
 	onDismissRequest: () -> Unit,
@@ -91,10 +90,10 @@ fun MenuDropDownOptionButton(
 	}
 }
 
-@PreviewLightDarkApi33
+@PreviewLightDark
 @Composable
 fun MenuDropDownOptionButtonPreview() = ScannerAppTheme {
-	MenuDropDownOptionButton(
+	ManagePermissionMenu(
 		isExpanded = true,
 		onClick = { },
 		onDismissRequest = { },

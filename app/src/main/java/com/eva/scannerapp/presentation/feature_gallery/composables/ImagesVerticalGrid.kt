@@ -13,11 +13,15 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyGridItemScope
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
@@ -39,8 +43,14 @@ fun ImagesVerticalGrid(
 	onImageSelect: (ImageDataModel) -> Unit,
 	modifier: Modifier = Modifier,
 	columnsCount: Int = 3,
+	header: (@Composable (LazyGridItemScope.() -> Unit))? = null,
 	contentPaddingValues: PaddingValues = PaddingValues(0.dp)
 ) {
+
+	val showLoadingIndicator by remember(pages.loadState.refresh) {
+		derivedStateOf { pages.loadState.refresh is LoadState.Loading }
+	}
+
 	LazyVerticalGrid(
 		columns = GridCells.Fixed(columnsCount),
 		horizontalArrangement = Arrangement.spacedBy(space = dimensionResource(id = R.dimen.space_4)),
@@ -48,6 +58,9 @@ fun ImagesVerticalGrid(
 		contentPadding = contentPaddingValues,
 		modifier = modifier,
 	) {
+		header?.let {
+			item(span = { GridItemSpan(maxLineSpan) }, content = it)
+		}
 		items(
 			count = pages.itemCount,
 			key = pages.itemKey { it.id },
@@ -76,7 +89,7 @@ fun ImagesVerticalGrid(
 	}
 	// show a loading progress indicator when loading
 	AnimatedVisibility(
-		visible = pages.loadState.refresh is LoadState.Loading,
+		visible = showLoadingIndicator,
 		enter = fadeIn(initialAlpha = .3f, animationSpec = tween(durationMillis = 600)),
 		exit = fadeOut(animationSpec = tween(durationMillis = 200)),
 	) {

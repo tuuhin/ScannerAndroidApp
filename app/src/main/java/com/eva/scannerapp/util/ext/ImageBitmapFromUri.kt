@@ -1,4 +1,4 @@
-package com.eva.scannerapp.presentation.util.ext
+package com.eva.scannerapp.util.ext
 
 import android.content.Context
 import android.graphics.Bitmap

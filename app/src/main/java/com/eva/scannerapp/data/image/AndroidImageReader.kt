@@ -53,16 +53,26 @@ class AndroidImageReader(
 		)
 
 
-	override val isPermissionProvided: Boolean
+	override val isFullReadPermissionGranted: Boolean
 		get() = ContextCompat.checkSelfPermission(
 			context.applicationContext,
 			readPermissions
 		) == PermissionChecker.PERMISSION_GRANTED
 
+	override val isPartialReadAllowed: Boolean
+		get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+			ContextCompat.checkSelfPermission(
+				context,
+				Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED
+			) == PermissionChecker.PERMISSION_GRANTED
+		else false
+
 
 	override suspend fun readImagesPaged(page: Int, pageSize: Int): PagedResource<ImageDataModel> {
 
-		if (!isPermissionProvided) throw FileReadPermissionNotFoundException()
+		val isPartialOrFullRead = isPartialReadAllowed || isFullReadPermissionGranted
+
+		if (!isPartialOrFullRead) throw FileReadPermissionNotFoundException()
 
 		val offset = if (page >= 0) page * pageSize else 0
 
@@ -106,7 +116,7 @@ class AndroidImageReader(
 	}
 
 	override suspend fun readImage(): List<ImageDataModel> {
-		if (!isPermissionProvided) throw FileReadPermissionNotFoundException()
+		if (!isFullReadPermissionGranted) throw FileReadPermissionNotFoundException()
 
 		val bundle = Bundle().apply {
 			//sort columns
@@ -141,7 +151,7 @@ class AndroidImageReader(
 	}
 
 	override suspend fun readImageCount(): Int {
-		if (!isPermissionProvided) throw FileReadPermissionNotFoundException()
+		if (!isFullReadPermissionGranted) throw FileReadPermissionNotFoundException()
 
 		return withContext(Dispatchers.IO) {
 			val cursor = contentResolver.query(
@@ -156,7 +166,7 @@ class AndroidImageReader(
 
 
 	override suspend fun readLastSavedImage(): ImageDataModel {
-		if (!isPermissionProvided) throw FileReadPermissionNotFoundException()
+		if (!isFullReadPermissionGranted) throw FileReadPermissionNotFoundException()
 
 		val bundle = Bundle().apply {
 			//sort columns

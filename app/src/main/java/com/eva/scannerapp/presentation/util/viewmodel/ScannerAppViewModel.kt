@@ -1,4 +1,4 @@
-package com.eva.scannerapp.presentation.util
+package com.eva.scannerapp.presentation.util.viewmodel
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.SharedFlow

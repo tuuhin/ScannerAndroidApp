@@ -6,13 +6,11 @@ import androidx.core.content.ContextCompat
 import com.eva.scannerapp.data.ml.feed.CameraFeedImageAnalyzer
 import com.eva.scannerapp.domain.ml.models.RecognizedModel
 
-fun CameraController.addBarCodeAnalyser(
+fun CameraController.addImageAnalyzer(
 	context: Context,
 	analyser: CameraFeedImageAnalyzer<out RecognizedModel>,
 ) {
 	if (!isImageAnalysisEnabled) return
-	// Clear the available image analyzer
-	clearImageAnalysisAnalyzer()
 	val executor = ContextCompat.getMainExecutor(context)
 	// set the new analyzer
 	setImageAnalysisAnalyzer(executor, analyser)

@@ -23,17 +23,17 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.eva.scannerapp.R
-import com.eva.scannerapp.presentation.util.preview.PreviewApi33
 import com.eva.scannerapp.ui.theme.ScannerAppTheme
 
 @Composable
 fun CaptureBox(
 	modifier: Modifier = Modifier,
-	curveRadius: CornerSize = CornerSize(40.dp),
+	curveRadius: CornerSize = CornerSize(20.dp),
 	borderStroke: BorderStroke = BorderStroke(3.dp, Color.White),
 ) {
 	val localDensity = LocalDensity.current
@@ -162,7 +162,7 @@ private fun CacheDrawScope.drawCaptureBox(
 	}
 }
 
-@PreviewApi33
+@Preview
 @Composable
 fun CaptureBoxPreview() = ScannerAppTheme {
 	CaptureBox()

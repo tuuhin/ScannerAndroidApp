@@ -31,16 +31,16 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.eva.scannerapp.R
-import com.eva.scannerapp.presentation.util.preview.PreviewApi33
 import com.eva.scannerapp.ui.theme.ScannerAppTheme
 
 @Composable
 fun AnimatedCaptureButton(
 	onClick: () -> Unit,
 	modifier: Modifier = Modifier,
-	isEnabled: Boolean = true,
+	isAnimationRunning: Boolean = true,
 	rippleAnimationSpec: DurationBasedAnimationSpec<Float> = tween(1200, 400, EaseInOut),
 	colorAnimationSpec: DurationBasedAnimationSpec<Color> = tween(1200, 400, EaseInOut),
 	interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -60,7 +60,7 @@ fun AnimatedCaptureButton(
 	val boxSize by infiniteTransition.animateFloat(
 		initialValue = with(density) { CaptureButtonDefaults.rippleBoxSizeStart.toPx() },
 		targetValue = with(density) {
-			if (isEnabled)
+			if (isAnimationRunning)
 				CaptureButtonDefaults.rippleBoxSize.toPx()
 			else CaptureButtonDefaults.rippleBoxSizeStart.toPx()
 		},
@@ -72,14 +72,8 @@ fun AnimatedCaptureButton(
 	)
 
 	val rippleColor by infiniteTransition.animateColor(
-		initialValue = run {
-			if (isEnabled) rippleColorStart
-			else Color.Transparent
-		},
-		targetValue = run {
-			if (isEnabled) rippleColorEnd
-			else Color.Transparent
-		},
+		initialValue = if (isAnimationRunning) rippleColorStart else Color.Transparent,
+		targetValue = if (isAnimationRunning) rippleColorEnd else Color.Transparent,
 		animationSpec = infiniteRepeatable(
 			animation = colorAnimationSpec,
 			repeatMode = RepeatMode.Restart
@@ -89,10 +83,11 @@ fun AnimatedCaptureButton(
 
 
 	Box(
-		modifier = modifier.defaultMinSize(
-			minWidth = CaptureButtonDefaults.rippleBoxSize,
-			minHeight = CaptureButtonDefaults.rippleBoxSize
-		),
+		modifier = modifier
+			.defaultMinSize(
+				minWidth = CaptureButtonDefaults.rippleBoxSize,
+				minHeight = CaptureButtonDefaults.rippleBoxSize
+			),
 		contentAlignment = Alignment.Center
 	) {
 		// ripple container
@@ -130,7 +125,7 @@ fun AnimatedCaptureButton(
 				.clickable(
 					role = Role.Button,
 					onClick = onClick,
-					enabled = isEnabled
+					enabled = isAnimationRunning
 				),
 			contentAlignment = Alignment.Center
 		) {
@@ -146,13 +141,13 @@ private object CaptureButtonDefaults {
 	val contentBoxSize = 70.dp
 }
 
-@PreviewApi33
+@Preview
 @Composable
 fun CaptureButtonPreview() = ScannerAppTheme {
 	AnimatedCaptureButton(onClick = { }) {
 		Icon(
 			painter = painterResource(id = R.drawable.ic_capture),
-			contentDescription = null,
+			contentDescription = "Shutter",
 			tint = Color.Black
 		)
 	}

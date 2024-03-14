@@ -1,3 +1,4 @@
+package com.eva.scannerapp.presentation.composables.barcode
 
 import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
@@ -15,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -27,10 +29,19 @@ fun BarCodeResultsContacts(
 ) {
 	val context = LocalContext.current
 
-	val emails = type.emails.filterIsInstance<BarCodeTypes.Email>().filter { it.address != null }
-	val phones = type.phones.filterIsInstance<BarCodeTypes.Phone>().filter { it.number != null }
-	val urls = type.urls.filterIsInstance<BarCodeTypes.UrlBookMark>().filter { it.url != null }
-	val addresses = type.addresses.filterNotNull()
+	val emails = remember {
+		type.emails.filterIsInstance<BarCodeTypes.Email>().filter { it.address != null }
+	}
+
+	val phones = remember {
+		type.phones.filterIsInstance<BarCodeTypes.Phone>().filter { it.number != null }
+	}
+
+	val urls = remember {
+		type.urls.filterIsInstance<BarCodeTypes.UrlBookMark>().filter { it.url != null }
+	}
+
+	val addresses = remember { type.addresses.filterNotNull() }
 
 
 	Column(modifier = modifier) {

@@ -41,12 +41,20 @@ object PreviewFakes {
 		rect = null
 	)
 
+	val FAKE_QR_CODE_URL = RecognizedBarcode(
+		type = BarCodeTypes.UrlBookMark(title = "Somthing", url = "https://google.in"),
+		rawString = "https://google.in",
+		displayText = "",
+		rect = null,
+		codeFormat = BarCodeFormat.QR_CODE
+	)
+
 	val FAKE_BAR_CODE_TEXT =
 		RecognizedBarcode(
 			type = BarCodeTypes.Text("This is an awesome data based QR code"),
 			displayText = "This is an awesome data based QR code",
 			rawString = "This is an awesome data based QR code",
-			codeFormat = BarCodeFormat.CODE_39,
+			codeFormat = BarCodeFormat.QR_CODE,
 			rect = null
 		)
 
@@ -58,7 +66,7 @@ object PreviewFakes {
 		),
 		displayText = "tuhinbhommick2513@gmail.com",
 		rawString = "mailto:something@some.com?subject=Hey how are you&body=this is an qr to check email data",
-		codeFormat = BarCodeFormat.CODE_39,
+		codeFormat = BarCodeFormat.QR_CODE,
 		rect = null
 	)
 
@@ -66,7 +74,7 @@ object PreviewFakes {
 		type = BarCodeTypes.GeoPoint(23.67, 65.89),
 		displayText = "geo:23.67,65.89",
 		rawString = "geo:23.67,65.89",
-		codeFormat = BarCodeFormat.CODE_39,
+		codeFormat = BarCodeFormat.QR_CODE,
 		rect = null
 	)
 
@@ -74,7 +82,7 @@ object PreviewFakes {
 		type = BarCodeTypes.Phone("+911234567890"),
 		displayText = "+911234567890",
 		rawString = "tel:+911234567890",
-		codeFormat = BarCodeFormat.CODE_39,
+		codeFormat = BarCodeFormat.QR_CODE,
 		rect = null
 	)
 
@@ -82,7 +90,7 @@ object PreviewFakes {
 		type = BarCodeTypes.Sms(phoneNumber = "+911234567890", message = "Hi!!"),
 		displayText = "+911234567890\nHi!!",
 		rawString = "SMSTO:1234567890:Hi!!",
-		codeFormat = BarCodeFormat.CODE_39,
+		codeFormat = BarCodeFormat.QR_CODE,
 		rect = null
 	)
 

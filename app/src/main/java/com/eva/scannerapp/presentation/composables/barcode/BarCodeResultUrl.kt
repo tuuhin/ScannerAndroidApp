@@ -1,3 +1,4 @@
+package com.eva.scannerapp.presentation.composables.barcode
 
 import android.content.Intent
 import android.net.Uri
@@ -19,9 +20,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.eva.scannerapp.R
 import com.eva.scannerapp.domain.ml.util.BarCodeTypes
+import com.eva.scannerapp.presentation.util.preview.PreviewFakes
 import com.eva.scannerapp.ui.theme.ScannerAppTheme
 
 @Composable
@@ -31,7 +35,9 @@ fun BarCodeUrlResults(
 ) {
 	val context = LocalContext.current
 
-	Column(modifier = modifier) {
+	Column(
+		modifier = modifier
+	) {
 		SuggestionChip(
 			onClick = {
 				type.url?.let { site ->
@@ -43,19 +49,18 @@ fun BarCodeUrlResults(
 					context.startActivity(intent)
 				}
 			},
-			label = { Text(text = "Open Site") },
+			label = { Text(text = stringResource(id = R.string.bar_code_results_helper_open_url)) },
 			icon = {
 				Icon(
 					imageVector = Icons.Default.Public,
-					contentDescription = null,
+					contentDescription = stringResource(id = R.string.bar_code_results_helper_open_url),
 				)
 			},
 			shape = MaterialTheme.shapes.large,
-			colors = SuggestionChipDefaults
-				.suggestionChipColors(
-					iconContentColor = MaterialTheme.colorScheme.primary,
-					containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp)
-				)
+			colors = SuggestionChipDefaults.suggestionChipColors(
+				iconContentColor = MaterialTheme.colorScheme.primary,
+				containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp)
+			)
 		)
 		Row(
 			horizontalArrangement = Arrangement.spacedBy(32.dp),
@@ -64,30 +69,38 @@ fun BarCodeUrlResults(
 				verticalArrangement = Arrangement.SpaceBetween,
 				modifier = Modifier.wrapContentHeight()
 			) {
-				Text(
-					text = "Title",
-					style = MaterialTheme.typography.labelLarge,
-					color = MaterialTheme.colorScheme.onSurfaceVariant
-				)
-				Text(
-					text = "URL",
-					style = MaterialTheme.typography.labelLarge,
-					color = MaterialTheme.colorScheme.onSurfaceVariant
-				)
+				type.title?.let {
+					Text(
+						text = stringResource(id = R.string.barcode_results_title_urlbookmark_title),
+						style = MaterialTheme.typography.labelLarge,
+						color = MaterialTheme.colorScheme.onSurfaceVariant
+					)
+				}
+				type.url?.let {
+					Text(
+						text = stringResource(id = R.string.barcode_results_title_urlbookmark_url),
+						style = MaterialTheme.typography.labelLarge,
+						color = MaterialTheme.colorScheme.onSurfaceVariant
+					)
+				}
 			}
 			Column(
 				modifier = Modifier.align(Alignment.CenterVertically)
 			) {
-				Text(
-					text = type.title ?: "",
-					style = MaterialTheme.typography.labelMedium,
-					color = MaterialTheme.colorScheme.onSurface
-				)
-				Text(
-					text = type.url ?: "",
-					style = MaterialTheme.typography.labelMedium,
-					color = MaterialTheme.colorScheme.onSurface
-				)
+				type.title?.let { title ->
+					Text(
+						text = title,
+						style = MaterialTheme.typography.labelMedium,
+						color = MaterialTheme.colorScheme.onSurface
+					)
+				}
+				type.url?.let { url ->
+					Text(
+						text = url,
+						style = MaterialTheme.typography.labelMedium,
+						color = MaterialTheme.colorScheme.onSurface
+					)
+				}
 			}
 		}
 	}
@@ -98,10 +111,7 @@ fun BarCodeUrlResults(
 private fun BarCodeUrlResultsPreview() = ScannerAppTheme {
 	Surface {
 		BarCodeUrlResults(
-			type = BarCodeTypes.UrlBookMark(
-				title = "hey this is an awesome website",
-				url = "https://google.com"
-			),
+			type = PreviewFakes.FAKE_QR_CODE_URL.type as BarCodeTypes.UrlBookMark,
 			modifier = Modifier
 				.padding(horizontal = 16.dp, vertical = 8.dp)
 		)

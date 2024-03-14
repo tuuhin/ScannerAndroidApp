@@ -7,11 +7,11 @@ import javax.inject.Inject
 
 class FeedAnalyzers {
 
-	inner class BarCode @Inject constructor(
+	class BarCode @Inject constructor(
 		barcode: MLModelAnalyzer<RecognizedBarcode>
 	) : CameraFeedImageAnalyzer<RecognizedBarcode>(mlAnalyser = barcode)
 
-	inner class Labels @Inject constructor(
+	class Labels @Inject constructor(
 		labels: MLModelAnalyzer<RecognizedLabel>
 	) : CameraFeedImageAnalyzer<RecognizedLabel>(mlAnalyser = labels)
 

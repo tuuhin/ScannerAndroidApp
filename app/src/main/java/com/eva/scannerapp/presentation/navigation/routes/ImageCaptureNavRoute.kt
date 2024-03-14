@@ -1,17 +1,27 @@
 package com.eva.scannerapp.presentation.navigation.routes
 
+import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.eva.scannerapp.presentation.composables.UiEventsCollector
 import com.eva.scannerapp.presentation.feature_capture.ImageCaptureScreen
 import com.eva.scannerapp.presentation.feature_capture.ImageCaptureViewModel
+import com.eva.scannerapp.presentation.feature_capture.util.addImageAnalyzer
+import com.eva.scannerapp.presentation.navigation.navArgs.ResultsScreenArgs
+import com.eva.scannerapp.presentation.navigation.routes.destinations.AnalysisNavRouteDestination
 import com.eva.scannerapp.presentation.navigation.screen.RouteAnimation
 import com.eva.scannerapp.presentation.navigation.screen.Routes
+import com.eva.scannerapp.presentation.util.LocalSnackBarStateProvider
+import com.eva.scannerapp.presentation.util.viewmodel.SideEffects
+import com.eva.scannerapp.presentation.util.viewmodel.UiEvents
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 @RootNavGraph(start = true)
 @Destination(
@@ -22,24 +32,50 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 fun ImageCaptureNavRoute(
 	navigator: DestinationsNavigator
 ) {
-	val viewModel = hiltViewModel<ImageCaptureViewModel>()
-	val previewState by viewModel.previewImage.collectAsStateWithLifecycle()
-	val screenState by viewModel.screenState.collectAsStateWithLifecycle()
+	val context = LocalContext.current
+	val snackBarProvider = LocalSnackBarStateProvider.current
 
-	UiEventsCollector(viewModel = viewModel)
+	val viewModel = hiltViewModel<ImageCaptureViewModel>()
+
+	val previewState by viewModel.previewImageState.collectAsStateWithLifecycle()
+	val screenState by viewModel.cameraScreenState.collectAsStateWithLifecycle()
+	val isCapturing by viewModel.isCapturing.collectAsStateWithLifecycle()
+	val recognizedItem by viewModel.recognizedItemState.collectAsStateWithLifecycle()
+
+	val scope = rememberCoroutineScope()
+
+	viewModel.SideEffects { events ->
+		when (events) {
+			is UiEvents.ShowSnackBar -> snackBarProvider.showSnackbar(events.message)
+			is UiEvents.ShowToast -> Toast.makeText(context, events.message, Toast.LENGTH_SHORT)
+				.show()
+
+			is UiEvents.NavigateBack -> navigator.popBackStack()
+			is UiEvents.NavigateToResults -> {
+				val navArgs = ResultsScreenArgs(fileUri = events.uri)
+				navigator.navigate(AnalysisNavRouteDestination(navArgs))
+			}
+		}
+	}
 
 	ImageCaptureScreen(
-		previewState = previewState,
-		screenState = screenState,
-		onCapture = { bitmap ->
-
-		},
-		onNavigateGallery = {
+		previewImageState = previewState,
+		cameraScreenState = screenState,
+		recognizedState = recognizedItem,
+		navigation = {
 			navigator.navigate(route = Routes.GALLERY_ROUTE, onlyIfResumed = true) {
 				launchSingleTop = true
 			}
 		},
-		onEvent = viewModel::onEvent,
+		onImageEvents = viewModel::onImageEvents,
+		onSheetEvents = viewModel::onSheetEvents,
+		controllerConstraints = { controller ->
+			viewModel.imageAnalyzer.onEach { analyzer ->
+				// clear the analyzer
+				controller.clearImageAnalysisAnalyzer()
+				//set the new analyzer
+				controller.addImageAnalyzer(context = context, analyzer)
+			}.launchIn(scope)
+		}
 	)
-
 }

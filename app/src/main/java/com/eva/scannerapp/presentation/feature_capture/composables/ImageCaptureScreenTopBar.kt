@@ -1,5 +1,7 @@
 package com.eva.scannerapp.presentation.feature_capture.composables
 
+import ManagePermissionMenu
+import androidx.compose.foundation.background
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -12,13 +14,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.eva.scannerapp.R
 import com.eva.scannerapp.presentation.util.preview.BooleanPreviewParams
-import com.eva.scannerapp.presentation.util.preview.PreviewApi33
 import com.eva.scannerapp.ui.theme.ScannerAppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -38,6 +41,8 @@ fun ImageCaptureScreenTopBar(
 		actionIconContentColor = Color.White
 	) else TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = Color.Transparent)
 
+
+
 	CenterAlignedTopAppBar(
 		title = { Text(text = stringResource(id = R.string.app_name)) },
 		navigationIcon = {
@@ -56,7 +61,7 @@ fun ImageCaptureScreenTopBar(
 				}
 		},
 		actions = {
-			MenuDropDownOptionButton(
+			ManagePermissionMenu(
 				isExpanded = isMenuActive,
 				onClick = { isMenuActive = !isMenuActive },
 				onDismissRequest = { isMenuActive = false },
@@ -64,14 +69,23 @@ fun ImageCaptureScreenTopBar(
 		},
 		colors = colors,
 		modifier = modifier
+			.background(
+				Brush.verticalGradient(
+					colors = listOf(
+						Color.Black,
+						Color.Transparent,
+						Color.Transparent
+					)
+				)
+			)
 	)
 }
 
-@PreviewApi33
+@Preview
 @Composable
-fun ImageCaptureScreenTopBarPreview(
+private fun ImageCaptureScreenTopBarIsFlashEnabledPreview(
 	@PreviewParameter(BooleanPreviewParams::class)
-	isFlashEnabled: Boolean
+	isFlashEnabled: Boolean,
 ) = ScannerAppTheme {
 	ImageCaptureScreenTopBar(
 		isPermsEnabled = true,

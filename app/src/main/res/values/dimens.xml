@@ -9,4 +9,6 @@
   <dimen name="camera_controls_padding_horizontal">20dp</dimen>
   <dimen name="capture_box_min_dim">160dp</dimen>
   <dimen name="perms_button_min_width">240dp</dimen>
+  <dimen name="modal_sheet_padding">16dp</dimen>
+  <dimen name="capture_box_size">240dp</dimen>
 </resources>

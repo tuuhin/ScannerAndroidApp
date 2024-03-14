@@ -1,12 +1,16 @@
+package com.eva.scannerapp.presentation.composables.barcode
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Map
+import androidx.compose.material.icons.outlined.Explore
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SuggestionChip
@@ -18,8 +22,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.eva.scannerapp.R
 import com.eva.scannerapp.domain.ml.util.BarCodeTypes
+import com.eva.scannerapp.presentation.util.preview.PreviewFakes
+import com.eva.scannerapp.ui.theme.ScannerAppTheme
 import java.text.DecimalFormat
 
 @Composable
@@ -35,17 +44,25 @@ fun BarCodeResultMaps(
 	Column(modifier = modifier) {
 		SuggestionChip(
 			onClick = {
-				val uri = "geo:${type.lat},${type.long}"
-				val intent = Intent(Intent.ACTION_VIEW).apply {
-					data = Uri.parse(uri)
+				try {
+					val intent = Intent(Intent.ACTION_VIEW).apply {
+						data = Uri.fromParts("geo", "${type.lat},${type.long}", null)
+					}
+					context.startActivity(intent)
+				} catch (e: ActivityNotFoundException) {
+					e.printStackTrace()
+					Toast.makeText(
+						context,
+						context.getString(R.string.bar_code_results_no_activity_to_start_with),
+						Toast.LENGTH_SHORT
+					).show()
 				}
-				context.startActivity(intent)
 			},
-			label = { Text(text = "Open Map") },
+			label = { Text(text = stringResource(id = R.string.bar_code_results_helper_map)) },
 			icon = {
 				Icon(
-					imageVector = Icons.Default.Map,
-					contentDescription = null,
+					imageVector = Icons.Outlined.Explore,
+					contentDescription = stringResource(id = R.string.bar_code_results_helper_map),
 				)
 			},
 			shape = MaterialTheme.shapes.large,
@@ -63,16 +80,16 @@ fun BarCodeResultMaps(
 			) {
 				type.lat?.let {
 					Text(
-						text = "Latitude",
-						style = MaterialTheme.typography.labelLarge,
+						text = stringResource(id = R.string.barcode_results_title_latitude),
+						style = MaterialTheme.typography.titleSmall,
 						color = MaterialTheme.colorScheme.onSurfaceVariant
 					)
 
 				}
 				type.long?.let {
 					Text(
-						text = "Longitude",
-						style = MaterialTheme.typography.labelLarge,
+						text = stringResource(id = R.string.barcode_results_title_longitude),
+						style = MaterialTheme.typography.titleSmall,
 						color = MaterialTheme.colorScheme.onSurfaceVariant
 					)
 				}
@@ -83,19 +100,29 @@ fun BarCodeResultMaps(
 				type.lat?.let { lat ->
 					Text(
 						text = formatter.format(lat),
-						style = MaterialTheme.typography.labelMedium,
+						style = MaterialTheme.typography.bodyMedium,
 						color = MaterialTheme.colorScheme.onSurface
 					)
-
 				}
 				type.long?.let { long ->
 					Text(
 						text = formatter.format(long),
-						style = MaterialTheme.typography.labelMedium,
+						style = MaterialTheme.typography.bodyMedium,
 						color = MaterialTheme.colorScheme.onSurface
 					)
 				}
 			}
 		}
 	}
+}
+
+@PreviewLightDark
+@Composable
+private fun BarCodeResultMapPreview() = ScannerAppTheme {
+	BarCodeResultMaps(
+		type = PreviewFakes.FAKE_QR_CODE_GEO_POINT.type as BarCodeTypes.GeoPoint,
+		modifier = Modifier
+			.padding(horizontal = 16.dp, vertical = 8.dp)
+	)
+
 }

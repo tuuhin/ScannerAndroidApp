@@ -1,14 +1,15 @@
+package com.eva.scannerapp.presentation.composables.barcode
 
-import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.widget.Toast
+import android.content.pm.PackageManager
+import android.net.Uri
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Email
+import androidx.compose.material.icons.automirrored.outlined.Message
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SuggestionChip
@@ -20,7 +21,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.eva.scannerapp.domain.ml.util.BarCodeTypes
@@ -28,8 +28,8 @@ import com.eva.scannerapp.presentation.util.preview.PreviewFakes
 import com.eva.scannerapp.ui.theme.ScannerAppTheme
 
 @Composable
-fun BarCodeEmailResults(
-	type: BarCodeTypes.Email,
+fun BarCodeResultsSms(
+	type: BarCodeTypes.Sms,
 	modifier: Modifier = Modifier
 ) {
 	val context = LocalContext.current
@@ -37,24 +37,21 @@ fun BarCodeEmailResults(
 	Column(modifier = modifier) {
 		SuggestionChip(
 			onClick = {
-				try {
+
+				val hasFeature = context.packageManager
+					.hasSystemFeature(PackageManager.FEATURE_TELEPHONY)
+				if (hasFeature) {
 					val intent = Intent(Intent.ACTION_SENDTO).apply {
-						putExtra(Intent.EXTRA_TITLE, type.subject)
-						putExtra(Intent.EXTRA_TEXT, type.body)
-						putExtra(Intent.EXTRA_EMAIL, type.address)
+						data = Uri.fromParts("smsto", type.phoneNumber, null)
+						putExtra("sms_body", type.message)
 					}
 					context.startActivity(intent)
-
-				} catch (e: ActivityNotFoundException) {
-					Toast.makeText(context, "No activity found", Toast.LENGTH_SHORT).show()
-					e.printStackTrace()
 				}
-
 			},
-			label = { Text(text = "Send Mail") },
+			label = { Text(text = "Send SMS") },
 			icon = {
 				Icon(
-					imageVector = Icons.Outlined.Email,
+					imageVector = Icons.AutoMirrored.Outlined.Message,
 					contentDescription = null,
 				)
 			},
@@ -72,50 +69,36 @@ fun BarCodeEmailResults(
 				verticalArrangement = Arrangement.SpaceBetween,
 				modifier = Modifier.wrapContentHeight()
 			) {
-				type.address?.let {
+				type.phoneNumber?.let {
 					Text(
-						text = "Address",
+						text = "Phone Number",
 						style = MaterialTheme.typography.labelLarge,
 						color = MaterialTheme.colorScheme.onSurfaceVariant
 					)
 				}
-				type.subject?.let {
+				type.message?.let {
 					Text(
-						text = "Subject",
+						text = "Body",
 						style = MaterialTheme.typography.labelLarge,
 						color = MaterialTheme.colorScheme.onSurfaceVariant
 					)
 				}
-				Text(
-					text = "Body",
-					style = MaterialTheme.typography.labelLarge,
-					color = MaterialTheme.colorScheme.onSurfaceVariant
-				)
 			}
 			Column(
 				modifier = Modifier.align(Alignment.CenterVertically)
 			) {
-				type.address?.let {
+				type.phoneNumber?.let { phNumber ->
 					Text(
-						text = type.address,
+						text = phNumber,
 						style = MaterialTheme.typography.labelMedium,
 						color = MaterialTheme.colorScheme.onSurface
 					)
 				}
-				type.subject?.let {
+				type.message?.let { body ->
 					Text(
-						text = type.subject,
+						text = body,
 						style = MaterialTheme.typography.labelMedium,
 						color = MaterialTheme.colorScheme.onSurface
-					)
-				}
-				type.body?.let {
-					Text(
-						text = type.body,
-						style = MaterialTheme.typography.labelMedium,
-						color = MaterialTheme.colorScheme.onSurface,
-						maxLines = 2,
-						overflow = TextOverflow.Ellipsis
 					)
 				}
 			}
@@ -125,10 +108,10 @@ fun BarCodeEmailResults(
 
 @PreviewLightDark
 @Composable
-private fun BarCodeUrlResultsPreview() = ScannerAppTheme {
+private fun BarCodeResultsSmsPreview() = ScannerAppTheme {
 	Surface {
-		BarCodeEmailResults(
-			type = PreviewFakes.FAKE_QR_CODE_EMAIL.type as BarCodeTypes.Email,
+		BarCodeResultsSms(
+			type = PreviewFakes.FAKE_QR_CODE_SMS.type as BarCodeTypes.Sms,
 			modifier = Modifier
 				.padding(horizontal = 16.dp, vertical = 8.dp)
 		)

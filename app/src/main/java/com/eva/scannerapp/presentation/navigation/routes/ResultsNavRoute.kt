@@ -9,15 +9,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.paging.compose.collectAsLazyPagingItems
 import com.eva.scannerapp.R
-import com.eva.scannerapp.presentation.feature_gallery.ImageGalleryScreen
-import com.eva.scannerapp.presentation.feature_gallery.ImageGalleryViewModel
+import com.eva.scannerapp.presentation.feature_result.AnalysisResultsViewModel
+import com.eva.scannerapp.presentation.feature_result.ResultsScreen
 import com.eva.scannerapp.presentation.navigation.navArgs.ResultsScreenArgs
-import com.eva.scannerapp.presentation.navigation.routes.destinations.ResultsNavRouteDestination
 import com.eva.scannerapp.presentation.navigation.screen.RouteAnimation
 import com.eva.scannerapp.presentation.navigation.screen.Routes
 import com.eva.scannerapp.presentation.util.LocalSnackBarStateProvider
@@ -27,19 +24,21 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Destination(
-	route = Routes.GALLERY_ROUTE,
+	route = Routes.RESULTS_ROUTE,
 	style = RouteAnimation::class,
+	navArgsDelegate = ResultsScreenArgs::class
 )
 @Composable
-fun GalleryNavRoute(
-	navigator: DestinationsNavigator
+fun ResultsNavRoute(
+	navigator: DestinationsNavigator,
 ) {
 	val context = LocalContext.current
 	val snackBarProvider = LocalSnackBarStateProvider.current
 
-	val viewModel = hiltViewModel<ImageGalleryViewModel>()
-	val pages = viewModel.pagedImages.collectAsLazyPagingItems()
-	val canReadImage by viewModel.canReadImage.collectAsStateWithLifecycle()
+	val viewModel = hiltViewModel<AnalysisResultsViewModel>()
+
+	val resultsState by viewModel.resultState.collectAsStateWithLifecycle()
+	val option by viewModel.analysisOption.collectAsStateWithLifecycle()
 
 	viewModel.SideEffects { events ->
 		when (events) {
@@ -51,17 +50,10 @@ fun GalleryNavRoute(
 		}
 	}
 
-	ImageGalleryScreen(
-		permissionState = canReadImage,
-		pages = pages,
-		onPermissionRecheck = viewModel::onRecheckPermissions,
-		onImageSelect = {
-			val fileUri = it.imageUri.toUri()
-			val navArgs = ResultsScreenArgs(fileUri = fileUri)
-			navigator.navigate(ResultsNavRouteDestination(navArgs)) {
-				launchSingleTop = true
-			}
-		},
+	ResultsScreen(
+		resultsState = resultsState,
+		analysisOption = option,
+		onResultEvent = viewModel::onEvents,
 		navigation = {
 			IconButton(onClick = navigator::popBackStack) {
 				Icon(
@@ -69,6 +61,6 @@ fun GalleryNavRoute(
 					contentDescription = stringResource(id = R.string.navigation_back)
 				)
 			}
-		}
+		},
 	)
 }

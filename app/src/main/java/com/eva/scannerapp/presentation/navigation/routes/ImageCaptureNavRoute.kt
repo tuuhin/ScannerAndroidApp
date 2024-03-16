@@ -11,7 +11,7 @@ import com.eva.scannerapp.presentation.feature_capture.ImageCaptureScreen
 import com.eva.scannerapp.presentation.feature_capture.ImageCaptureViewModel
 import com.eva.scannerapp.presentation.feature_capture.util.addImageAnalyzer
 import com.eva.scannerapp.presentation.navigation.navArgs.ResultsScreenArgs
-import com.eva.scannerapp.presentation.navigation.routes.destinations.AnalysisNavRouteDestination
+import com.eva.scannerapp.presentation.navigation.routes.destinations.ResultsNavRouteDestination
 import com.eva.scannerapp.presentation.navigation.screen.RouteAnimation
 import com.eva.scannerapp.presentation.navigation.screen.Routes
 import com.eva.scannerapp.presentation.util.LocalSnackBarStateProvider
@@ -52,8 +52,8 @@ fun ImageCaptureNavRoute(
 
 			is UiEvents.NavigateBack -> navigator.popBackStack()
 			is UiEvents.NavigateToResults -> {
-				val navArgs = ResultsScreenArgs(fileUri = events.uri)
-				navigator.navigate(AnalysisNavRouteDestination(navArgs))
+				val navArgs = ResultsScreenArgs(fileUri = events.uri, fromCamera = true)
+				navigator.navigate(ResultsNavRouteDestination(navArgs))
 			}
 		}
 	}

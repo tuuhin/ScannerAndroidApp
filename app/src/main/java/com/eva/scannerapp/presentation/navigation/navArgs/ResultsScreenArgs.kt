@@ -4,4 +4,5 @@ import android.net.Uri
 
 data class ResultsScreenArgs(
 	val fileUri: Uri? = null,
+	val fromCamera: Boolean = false,
 )

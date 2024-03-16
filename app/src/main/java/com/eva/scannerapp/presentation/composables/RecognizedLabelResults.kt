@@ -36,12 +36,13 @@ import com.eva.scannerapp.ui.theme.ScannerAppTheme
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun RecognizedLabelResults(
-	results: List<RecognizedLabel>?,
-	modifier: Modifier = Modifier
+	modifier: Modifier = Modifier,
+	isAnalyzing: Boolean = false,
+	results: List<RecognizedLabel>? = emptyList(),
 ) {
 
-	val isAnalyzing by remember(results) {
-		derivedStateOf { results == null }
+	val isNoResults by remember(results) {
+		derivedStateOf { results.isNullOrEmpty() }
 	}
 
 	Column(
@@ -63,32 +64,34 @@ fun RecognizedLabelResults(
 			label = "Is Ml analyzing",
 			animationSpec = tween(durationMillis = 150, easing = EaseIn)
 		) { isLoading ->
-			if (isLoading) {
-				LinearProgressIndicator(
-					trackColor = MaterialTheme.colorScheme.surfaceVariant,
-					color = MaterialTheme.colorScheme.secondary,
-					strokeCap = StrokeCap.Round,
-					modifier = Modifier
-						.padding(vertical = 8.dp)
-						.fillMaxWidth()
-				)
-			} else {
-				FlowRow(
-					horizontalArrangement = Arrangement.spacedBy(4.dp),
-					maxItemsInEachRow = 4
-				) {
-					results?.forEach { label ->
-						SuggestionChip(
-							onClick = {},
-							label = { Text(text = label.text) },
-							border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
-							colors = SuggestionChipDefaults.suggestionChipColors(
-								labelColor = MaterialTheme.colorScheme.onPrimaryContainer,
-								containerColor = MaterialTheme.colorScheme.primaryContainer
-							),
-							shape = MaterialTheme.shapes.large
-						)
-					}
+			if (isLoading) LinearProgressIndicator(
+				trackColor = MaterialTheme.colorScheme.surfaceVariant,
+				color = MaterialTheme.colorScheme.secondary,
+				strokeCap = StrokeCap.Round,
+				modifier = Modifier
+					.padding(vertical = 8.dp)
+					.fillMaxWidth()
+			)
+			else if (isNoResults) Text(
+				text = "No Labels are recognized in the image",
+				style = MaterialTheme.typography.titleMedium,
+				color = MaterialTheme.colorScheme.onSurface
+			)
+			else FlowRow(
+				horizontalArrangement = Arrangement.spacedBy(4.dp),
+				maxItemsInEachRow = 4
+			) {
+				results?.forEach { label ->
+					SuggestionChip(
+						onClick = {},
+						label = { Text(text = label.text) },
+						border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
+						colors = SuggestionChipDefaults.suggestionChipColors(
+							labelColor = MaterialTheme.colorScheme.onPrimaryContainer,
+							containerColor = MaterialTheme.colorScheme.primaryContainer
+						),
+						shape = MaterialTheme.shapes.large
+					)
 				}
 			}
 		}
@@ -104,6 +107,7 @@ private fun RecognizedLabelsResultsPreview(
 ) = ScannerAppTheme {
 	Surface(shape = BottomSheetDefaults.ExpandedShape) {
 		RecognizedLabelResults(
+			isAnalyzing = false,
 			results = results,
 			modifier = Modifier.padding(20.dp)
 		)

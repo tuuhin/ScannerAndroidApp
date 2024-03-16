@@ -5,12 +5,10 @@ import androidx.compose.ui.graphics.toComposeRect
 import com.eva.scannerapp.domain.ml.models.RecognizedBarcode
 import com.eva.scannerapp.domain.ml.models.RecognizedLabel
 import com.eva.scannerapp.domain.ml.models.RecognizedModel
-import com.eva.scannerapp.presentation.composables.options.AnalysisOption
 
 
 /**
  * Represents the state of the recognized item
- * @param analysisOption Represents which recognizer model is being used
  * @param showResults Determine is the bottom sheet should be shown
  * @param models The [List] of [RecognizedModel] recognized by the recognizer
  * @param savedModel A cache model to show analysis results mostly used in case a model have large
@@ -19,7 +17,6 @@ import com.eva.scannerapp.presentation.composables.options.AnalysisOption
  * @property boundingRect The rect covering the recognized item
  */
 data class RecognizedItemState(
-	val analysisOption: AnalysisOption = AnalysisOption.BAR_CODE,
 	val showResults: Boolean = false,
 	val models: List<RecognizedModel>? = null,
 	val savedModel: RecognizedModel? = null

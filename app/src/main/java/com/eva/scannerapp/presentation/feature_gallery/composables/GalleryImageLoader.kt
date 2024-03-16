@@ -1,28 +1,16 @@
 package com.eva.scannerapp.presentation.feature_gallery.composables
 
-import android.graphics.Bitmap
-import android.util.Size
-import androidx.compose.animation.Crossfade
-import androidx.compose.animation.core.EaseInOut
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,40 +19,33 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import coil.imageLoader
+import coil.request.ImageRequest
 import com.eva.scannerapp.R
 import com.eva.scannerapp.domain.image.models.ImageDataModel
 import com.eva.scannerapp.presentation.util.preview.PreviewFakes
 import com.eva.scannerapp.ui.theme.ScannerAppTheme
-import com.eva.scannerapp.util.ext.getImageBitmap
-import kotlinx.coroutines.delay
-import kotlin.time.Duration.Companion.milliseconds
 
-private val throttleDuration = 200.milliseconds
 
 @Composable
 fun GalleryImageLoader(
 	image: ImageDataModel,
 	modifier: Modifier = Modifier,
-	throttleBeforeLoading: Boolean = true,
 	shape: Shape = MaterialTheme.shapes.medium,
 	color: Color = MaterialTheme.colorScheme.surfaceVariant
 ) {
 	val context = LocalContext.current
+	val lifecycleOwner = LocalLifecycleOwner.current
 	val view = LocalView.current
-
-	var bitmap by remember { mutableStateOf<Bitmap?>(null) }
-
-	var containerSize by remember { mutableStateOf(IntSize.Zero) }
 
 	val brushColor = Brush.verticalGradient(
 		colors = listOf(
@@ -73,7 +54,6 @@ fun GalleryImageLoader(
 			MaterialTheme.colorScheme.surface,
 		)
 	)
-
 
 	if (view.isInEditMode) {
 		Box(
@@ -97,54 +77,22 @@ fun GalleryImageLoader(
 		return
 	}
 
-	LaunchedEffect(key1 = containerSize) {
-		if (containerSize == IntSize.Zero) return@LaunchedEffect
-		val size = Size(containerSize.width, containerSize.height)
-		// throttle time the user may skip this image to wait for some time
-		// then load the image
-		if (throttleBeforeLoading) delay(duration = throttleDuration)
-		// create the image bitmap when container size is set
-		bitmap = image.getImageBitmap(context, size)
-	}
-
-	DisposableEffect(key1 = Unit) {
-		// when the user leaves the composition to recycle the bitmap
-		// which frees the native object associated with the bitmap
-		onDispose {
-			bitmap?.recycle()
-		}
-	}
-
 	Box(
 		modifier = modifier
-			.onSizeChanged { size -> containerSize = size }
 			.background(color = color, shape = shape)
 			.clip(shape = shape),
-		contentAlignment = Alignment.Center
-	) {
-		Crossfade(
-			targetState = bitmap != null,
-			label = "Loading the gallery Image",
-			modifier = Modifier.matchParentSize(),
-			animationSpec = tween(durationMillis = 800, easing = EaseInOut)
-		) { isOk ->
-			if (isOk && bitmap?.isRecycled == false)
-				bitmap?.let { bitmap ->
-					Image(
-						bitmap = bitmap.asImageBitmap(),
-						contentDescription = image.description,
-						contentScale = ContentScale.Crop,
-						filterQuality = FilterQuality.Medium,
-						modifier = Modifier.fillMaxSize()
-					)
-				}
-			else Box(
-				modifier = modifier
-					.matchParentSize()
-					.background(color = color, shape = shape),
-			)
+		contentAlignment = Alignment.Center) {
+		AsyncImage(
+			model = ImageRequest.Builder(context)
+				.data(image.imageUri)
+				.lifecycle(lifecycleOwner)
+				.build(),
+			contentDescription = null,
+			imageLoader = context.imageLoader,
+			contentScale = ContentScale.Crop,
+			filterQuality = FilterQuality.Medium,
+		)
 
-		}
 		ImageDetails(
 			image = image,
 			brushColor = brushColor,
@@ -152,6 +100,7 @@ fun GalleryImageLoader(
 		)
 	}
 }
+
 
 @Composable
 private fun ImageDetails(
@@ -166,7 +115,8 @@ private fun ImageDetails(
 		Column(
 			modifier = Modifier
 				.align(Alignment.BottomStart)
-				.padding(4.dp), verticalArrangement = Arrangement.spacedBy(2.dp)
+				.padding(4.dp),
+			verticalArrangement = Arrangement.spacedBy(2.dp)
 		) {
 
 			Text(

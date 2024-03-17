@@ -44,7 +44,7 @@ fun SettingsScreen(
 	val context = LocalContext.current
 	var showMenu by remember { mutableStateOf(false) }
 
-	val scrollBehaviour = TopAppBarDefaults.pinnedScrollBehavior()
+	val scrollBehaviour = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
 	Scaffold(
 		topBar = {

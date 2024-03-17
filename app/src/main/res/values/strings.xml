@@ -59,6 +59,6 @@
   <string name="settings_clear_image_desc">Clear image capture cache and image loading cache</string>
   <string name="settings_clear_option_text">Clear</string>
   <string name="settings_media_visibility">Media Visibility</string>
-  <string name="settings_media_visibility_desc">Clear Image Capture Cache and other cache files</string>
+  <string name="settings_media_visibility_desc">Save the capture image to the external storage</string>
   <string name="settings_title">Settings</string>
 </resources>

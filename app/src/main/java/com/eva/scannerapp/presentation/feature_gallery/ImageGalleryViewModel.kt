@@ -30,8 +30,8 @@ class ImageGalleryViewModel @Inject constructor(
 ) : ScannerAppViewModel() {
 
 	// is a device having permissions to read image it will be used
-	// only in the viewmodel not by the screen
-	private val _canReadImage = MutableStateFlow(GalleryPermissionState.NOT_GRANTED)
+	// only in the viewmodel not by the screen inti-tally its unknown
+	private val _canReadImage = MutableStateFlow(GalleryPermissionState.UNKNOWN)
 	val canReadImage = _canReadImage.asStateFlow()
 
 	private val fullReadOk: Boolean

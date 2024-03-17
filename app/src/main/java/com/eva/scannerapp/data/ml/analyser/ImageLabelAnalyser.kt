@@ -25,7 +25,7 @@ class ImageLabelAnalyser @Inject constructor(
 							RecognizedLabel(text = label.text, confidence = label.confidence)
 						}
 						if (models.isNotEmpty()) cont.resume(MLResource.Success(data = models))
-						cont.resume(value = MLResource.Empty())
+						else cont.resume(value = MLResource.Empty())
 					}
 					addOnFailureListener { exp ->
 						if (exp is MlKitException) {

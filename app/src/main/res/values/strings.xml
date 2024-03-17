@@ -46,4 +46,19 @@
   <string name="cannot_read_barcode_desc">Are you sure this image contains any barcode</string>
   <string name="analysing_barcode_title">Analysing Image</string>
   <string name="analysing_barcode_desc">Analysing provided image</string>
+  <string name="camera_capturing_dialog">Capturing…</string>
+
+  <string name="about_analyzers_bar_code_desc">With ML Kit\'s barcode scanning API, you can read data encoded using most standard barcode formats. Barcode scanning happens on the device, and doesn\'t require a network connection</string>
+  <string name="about_analyzers_image_labeling_desc">With ML Kit\'s image labeling APIs you can detect and extract information about entities in an image across a broad group of categories. The default image labeling model can identify general objects, places, activities, animal species, products, and more.</string>
+  <string name="about_analyzers_image_labeling_title">Image Labeling</string>
+  <string name="about_analyzers_bar_code_title">Bar Code</string>
+  <string name="about_analyzers_bar_code_url">https://developers.google.com/ml-kit/vision/barcode-scanning</string>
+  <string name="about_analyzers_image_labeling_url">https://developers.google.com/ml-kit/vision/image-labeling</string>
+  <string name="clear_image_cache">Cleared Image Cache</string>
+  <string name="settings_clear_image">Clear Image Cache</string>
+  <string name="settings_clear_image_desc">Clear image capture cache and image loading cache</string>
+  <string name="settings_clear_option_text">Clear</string>
+  <string name="settings_media_visibility">Media Visibility</string>
+  <string name="settings_media_visibility_desc">Clear Image Capture Cache and other cache files</string>
+  <string name="settings_title">Settings</string>
 </resources>

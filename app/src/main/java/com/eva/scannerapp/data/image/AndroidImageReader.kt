@@ -4,12 +4,14 @@ import android.Manifest
 import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.Context
+import android.database.ContentObserver
 import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.format.Formatter
+import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
 import androidx.core.database.getStringOrNull
@@ -19,7 +21,14 @@ import com.eva.scannerapp.domain.image.exceptions.QueriedFileNotFoundException
 import com.eva.scannerapp.domain.image.models.ImageBucketModel
 import com.eva.scannerapp.domain.image.models.ImageDataModel
 import com.eva.scannerapp.util.PagedResource
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 
@@ -161,6 +170,36 @@ class AndroidImageReader(
 				null
 			)
 			cursor?.use { it.count } ?: 0
+		}
+	}
+
+	override val readLastImageAsFlow: Flow<ImageDataModel?> = callbackFlow {
+
+		val scope = CoroutineScope(Dispatchers.IO)
+		var job: Job? = null
+
+		val observer = object : ContentObserver(null) {
+			override fun onChange(selfChange: Boolean) {
+				super.onChange(selfChange)
+				job?.cancel()
+				job = scope.launch {
+					Log.d("ANDROID_IMAGE_READER", "NEW_EMIT")
+					val image = readLastSavedImage()
+					send(image)
+				}
+			}
+		}
+		Log.d("ANDROID_IMAGE_READER", "OBSERVER ADDED")
+		contentResolver.registerContentObserver(volumeUri, true, observer)
+		//send the first edition
+		val firstEmit = readLastSavedImage()
+		trySend(firstEmit)
+		Log.d("ANDROID_IMAGE_READER", "FIRST_EMIT")
+
+		awaitClose {
+			Log.d("ANDROID_IMAGE_READER", "OBSERVER_REMOVED")
+			contentResolver.unregisterContentObserver(observer)
+			scope.cancel()
 		}
 	}
 

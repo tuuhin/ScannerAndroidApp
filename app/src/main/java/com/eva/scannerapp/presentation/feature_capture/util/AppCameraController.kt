@@ -1,6 +1,7 @@
 package com.eva.scannerapp.presentation.feature_capture.util
 
 import android.content.Context
+import android.graphics.ImageFormat
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.resolutionselector.AspectRatioStrategy
 import androidx.camera.core.resolutionselector.ResolutionSelector
@@ -16,11 +17,17 @@ object AppCameraController {
 		.setResolutionStrategy(ResolutionStrategy.HIGHEST_AVAILABLE_STRATEGY)
 		.build()
 
+	private val captureResolutionSelector = ResolutionSelector.Builder()
+		.setAspectRatioStrategy(AspectRatioStrategy.RATIO_4_3_FALLBACK_AUTO_STRATEGY)
+		.build()
+
 	fun getController(context: Context): LifecycleCameraController {
 		return LifecycleCameraController(context).apply {
 			setEnabledUseCases(USE_CASES)
 			isTapToFocusEnabled = true
+			imageAnalysisOutputImageFormat = ImageFormat.YUV_420_888
 			imageCaptureMode = ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY
+			imageCaptureResolutionSelector = captureResolutionSelector
 			// Image analysis config
 			imageAnalysisResolutionSelector = analysisResolutionSelector
 		}

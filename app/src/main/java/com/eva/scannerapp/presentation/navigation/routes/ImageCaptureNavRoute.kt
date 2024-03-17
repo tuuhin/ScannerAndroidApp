@@ -9,6 +9,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.eva.scannerapp.presentation.feature_capture.ImageCaptureScreen
 import com.eva.scannerapp.presentation.feature_capture.ImageCaptureViewModel
+import com.eva.scannerapp.presentation.feature_capture.composables.CapturingImageDialog
 import com.eva.scannerapp.presentation.feature_capture.util.addImageAnalyzer
 import com.eva.scannerapp.presentation.navigation.navArgs.ResultsScreenArgs
 import com.eva.scannerapp.presentation.navigation.routes.destinations.ResultsNavRouteDestination
@@ -58,12 +59,19 @@ fun ImageCaptureNavRoute(
 		}
 	}
 
+	CapturingImageDialog(isCapturing = isCapturing)
+
 	ImageCaptureScreen(
 		previewImageState = previewState,
 		cameraScreenState = screenState,
 		recognizedState = recognizedItem,
 		navigation = {
 			navigator.navigate(route = Routes.GALLERY_ROUTE, onlyIfResumed = true) {
+				launchSingleTop = true
+			}
+		},
+		onSettingsNavigation = {
+			navigator.navigate(route = Routes.SETTINGS_ROUTE, onlyIfResumed = true) {
 				launchSingleTop = true
 			}
 		},

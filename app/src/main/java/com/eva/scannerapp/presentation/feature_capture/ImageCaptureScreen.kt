@@ -46,6 +46,7 @@ fun ImageCaptureScreen(
 	navigation: () -> Unit,
 	modifier: Modifier = Modifier,
 	controllerConstraints: (CameraController) -> Unit,
+	onSettingsNavigation: () -> Unit = {},
 ) {
 	val context = LocalContext.current
 	val snackBarHostState = LocalSnackBarStateProvider.current
@@ -72,6 +73,7 @@ fun ImageCaptureScreen(
 				isPermsEnabled = isPermissionProvided,
 				isFlashEnabled = cameraScreenState.isFlashOn,
 				onToggleFlash = { onImageEvents(ImageCaptureEvents.ToggleFlashMode) },
+				onSettings = onSettingsNavigation
 			)
 		},
 		snackbarHost = { SnackbarHost(snackBarHostState) },

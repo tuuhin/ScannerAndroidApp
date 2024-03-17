@@ -1,7 +1,8 @@
 package com.eva.scannerapp.presentation.feature_capture.composables
 
-import ManagePermissionMenu
 import androidx.compose.foundation.background
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -21,6 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.eva.scannerapp.R
+import com.eva.scannerapp.presentation.composables.ManagePermissionMenu
 import com.eva.scannerapp.presentation.util.preview.BooleanPreviewParams
 import com.eva.scannerapp.ui.theme.ScannerAppTheme
 
@@ -31,6 +33,7 @@ fun ImageCaptureScreenTopBar(
 	isFlashEnabled: Boolean,
 	modifier: Modifier = Modifier,
 	onToggleFlash: () -> Unit = {},
+	onSettings: () -> Unit = {},
 ) {
 	var isMenuActive by remember { mutableStateOf(false) }
 
@@ -61,6 +64,12 @@ fun ImageCaptureScreenTopBar(
 				}
 		},
 		actions = {
+			IconButton(onClick = onSettings) {
+				Icon(
+					imageVector = Icons.Default.Settings,
+					contentDescription = "Settings Icon"
+				)
+			}
 			ManagePermissionMenu(
 				isExpanded = isMenuActive,
 				onClick = { isMenuActive = !isMenuActive },

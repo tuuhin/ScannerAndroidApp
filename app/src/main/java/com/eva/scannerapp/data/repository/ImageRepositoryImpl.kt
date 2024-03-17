@@ -10,8 +10,10 @@ import com.eva.scannerapp.domain.preferences.SettingsPreferences
 import com.eva.scannerapp.domain.repository.ImageRepository
 import com.eva.scannerapp.util.Resource
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class ImageRepositoryImpl @Inject constructor(
@@ -24,8 +26,9 @@ class ImageRepositoryImpl @Inject constructor(
 		get() = flow {
 			emit(Resource.Loading())
 			try {
-				val readResult = reader.readLastSavedImage()
-				emit(Resource.Success(data = readResult))
+				val readResult = reader.readLastImageAsFlow
+					.map { Resource.Success(it) }
+				emitAll(readResult)
 			} catch (e: FileReadPermissionNotFoundException) {
 				emit(Resource.Success(data = null))
 			} catch (e: QueriedFileNotFoundException) {
@@ -41,8 +44,8 @@ class ImageRepositoryImpl @Inject constructor(
 			emit(Resource.Loading())
 			try {
 				val isSaveToExternal = settings.isSaveToExternalAllowed.first()
-
-				val result = if (isSaveToExternal) writer.createLocalCacheFile(image)
+				// as its external keeping the quality near to full, i.e., 90
+				val result = if (isSaveToExternal) writer.createExternalFile(image, 90)
 				else writer.createLocalCacheFile(image)
 
 				emit(Resource.Success(data = result))

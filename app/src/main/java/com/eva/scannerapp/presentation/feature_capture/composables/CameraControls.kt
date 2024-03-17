@@ -1,7 +1,6 @@
 package com.eva.scannerapp.presentation.feature_capture.composables
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.Crossfade
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
@@ -11,10 +10,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -90,21 +87,13 @@ fun CameraControls(
 			modifier = modifier
 				.defaultMinSize(minHeight = dimensionResource(id = R.dimen.camera_controls_height)),
 		) {
-			Crossfade(
-				targetState = !imageState.isLoading,
-				label = "Is Preview Image Loading",
-				modifier = Modifier.align(Alignment.CenterStart)
-			) { isAvailable ->
-				if (isAvailable) PreviewPreviousImage(
-					imageModel = imageState.image,
-					onClick = onPreviewClick,
-					modifier = Modifier.wrapContentSize()
-				) else CircularProgressIndicator(
-					color = MaterialTheme.colorScheme.secondary,
-					modifier = Modifier
-						.size(size = dimensionResource(id = R.dimen.preview_image_max_dimen))
-				)
-			}
+			PreviewPreviousImage(
+				imageModel = imageState.image,
+				onClick = onPreviewClick,
+				modifier = Modifier
+					.align(Alignment.CenterStart)
+					.wrapContentSize()
+			)
 
 			AnimatedCaptureButton(
 				isAnimationRunning = isEnabled && ranCaptureAnimation,

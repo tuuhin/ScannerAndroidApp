@@ -58,7 +58,7 @@ dependencies {
 	implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
 	implementation("androidx.activity:activity-compose:1.8.2")
 	//compose
-	implementation(platform("androidx.compose:compose-bom:2024.02.01"))
+	implementation(platform("androidx.compose:compose-bom:2024.02.02"))
 	implementation("androidx.compose.ui:ui")
 	implementation("androidx.compose.ui:ui-graphics")
 	implementation("androidx.compose.ui:ui-tooling-preview")
@@ -78,24 +78,26 @@ dependencies {
 	implementation("com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0")
 	implementation("com.google.android.gms:play-services-mlkit-image-labeling:16.0.8")
 	//camerax
-	implementation("androidx.camera:camera-camera2:1.3.1")
-	implementation("androidx.camera:camera-lifecycle:1.3.1")
+	implementation("androidx.camera:camera-camera2:1.3.2")
+	implementation("androidx.camera:camera-lifecycle:1.3.2")
 	implementation("androidx.camera:camera-mlkit-vision:1.4.0-alpha04")
 	//paging
 	implementation("androidx.paging:paging-runtime-ktx:3.2.1")
 	implementation("androidx.paging:paging-compose:3.2.1")
+	//datastore
+	implementation("androidx.datastore:datastore-preferences:1.0.0")
 	//coil
 	implementation("io.coil-kt:coil-compose:2.5.0")
 	//splash
 	implementation("androidx.core:core-splashscreen:1.0.1")
 	//icons
-	implementation("androidx.compose.material:material-icons-extended:1.6.2")
+	implementation("androidx.compose.material:material-icons-extended:1.6.3")
 	//test
 	testImplementation("junit:junit:4.13.2")
 	// test-android
 	androidTestImplementation("androidx.test.ext:junit:1.1.5")
 	androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-	androidTestImplementation(platform("androidx.compose:compose-bom:2024.02.01"))
+	androidTestImplementation(platform("androidx.compose:compose-bom:2024.02.02"))
 	androidTestImplementation("androidx.compose.ui:ui-test-junit4")
 	//debug
 	debugImplementation("androidx.compose.ui:ui-tooling")

@@ -7,6 +7,7 @@ import com.eva.scannerapp.data.repository.ImageRepositoryImpl
 import com.eva.scannerapp.data.repository.StaticAnalyzerRepoImpl
 import com.eva.scannerapp.domain.image.ImageFileReader
 import com.eva.scannerapp.domain.image.ImageFileWriter
+import com.eva.scannerapp.domain.preferences.SettingsPreferences
 import com.eva.scannerapp.domain.repository.ImageRepository
 import com.eva.scannerapp.domain.repository.StaticImageAnalyzerRepo
 import dagger.Module
@@ -25,7 +26,12 @@ object RepositoryModule {
 	fun bindsReaderRepo(
 		reader: ImageFileReader,
 		writer: ImageFileWriter,
-	): ImageRepository = ImageRepositoryImpl(reader = reader, writer = writer)
+		settingsPreferences: SettingsPreferences,
+	): ImageRepository = ImageRepositoryImpl(
+		reader = reader,
+		writer = writer,
+		settings = settingsPreferences
+	)
 
 	@Provides
 	@ViewModelScoped

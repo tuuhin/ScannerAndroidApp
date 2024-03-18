@@ -94,6 +94,44 @@ object PreviewFakes {
 		rect = null
 	)
 
+	val FAKE_QR_CODE_CONTACTS = RecognizedBarcode(
+		type = BarCodeTypes.ContactInfo(
+			name = BarCodeTypes.ContactInfo.PersonName(
+				formattedName = null,
+				pronunciation = "He",
+				prefix = null,
+				first = "Sam",
+				middle = "Alexander",
+				last = null,
+				suffix = null
+			),
+			organization = "ANDROID_DEVELOPERS",
+			title = "Develop android applications",
+			phones = listOf(
+				BarCodeTypes.Phone(number = "1234567890"),
+				BarCodeTypes.Phone(number = "0987654321")
+			),
+			emails = listOf(
+				BarCodeTypes.Email(
+					subject = "Hey how are you",
+					body = "this is an qr to check email data",
+					address = "something@some.com"
+				),
+				BarCodeTypes.Email(
+					subject = "Hey how are you",
+					body = "this is an qr to check email data",
+					address = "something@some1.com"
+				)
+			),
+			urls = listOf("Somethings"),
+			addresses = listOf("Nothing"),
+		),
+		displayText = "+911234567890\nHi!!",
+		rawString = "SMSTO:1234567890:Hi!!",
+		codeFormat = BarCodeFormat.QR_CODE,
+		rect = null
+	)
+
 	val FAKE_IMAGE_DATA_MODELS = List(10) {
 		FAKE_IMAGE_DATA_MODEL.copy(id = it.toLong())
 	}

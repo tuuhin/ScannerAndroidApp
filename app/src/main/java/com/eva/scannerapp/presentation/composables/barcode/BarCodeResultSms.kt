@@ -5,9 +5,10 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Message
 import androidx.compose.material3.Icon
@@ -20,9 +21,14 @@ import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.eva.scannerapp.R
 import com.eva.scannerapp.domain.ml.util.BarCodeTypes
 import com.eva.scannerapp.presentation.util.preview.PreviewFakes
 import com.eva.scannerapp.ui.theme.ScannerAppTheme
@@ -30,7 +36,11 @@ import com.eva.scannerapp.ui.theme.ScannerAppTheme
 @Composable
 fun BarCodeResultsSms(
 	type: BarCodeTypes.Sms,
-	modifier: Modifier = Modifier
+	modifier: Modifier = Modifier,
+	titleStyle: TextStyle = MaterialTheme.typography.labelLarge,
+	valueStyle: TextStyle = MaterialTheme.typography.bodyMedium,
+	titleColor: Color = MaterialTheme.colorScheme.onSurfaceVariant,
+	valueColor: Color = MaterialTheme.colorScheme.onSurface,
 ) {
 	val context = LocalContext.current
 
@@ -48,7 +58,7 @@ fun BarCodeResultsSms(
 					context.startActivity(intent)
 				}
 			},
-			label = { Text(text = "Send SMS") },
+			label = { Text(text = stringResource(id = R.string.bar_code_results_helper_send_sms)) },
 			icon = {
 				Icon(
 					imageVector = Icons.AutoMirrored.Outlined.Message,
@@ -56,31 +66,31 @@ fun BarCodeResultsSms(
 				)
 			},
 			shape = MaterialTheme.shapes.large,
-			colors = SuggestionChipDefaults
-				.suggestionChipColors(
-					iconContentColor = MaterialTheme.colorScheme.primary,
-					containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp)
-				)
+			colors = SuggestionChipDefaults.suggestionChipColors(
+				iconContentColor = MaterialTheme.colorScheme.primary,
+				containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp)
+			)
 		)
 		Row(
-			horizontalArrangement = Arrangement.spacedBy(32.dp),
+			horizontalArrangement = Arrangement
+				.spacedBy(dimensionResource(id = R.dimen.barcode_resutls_spacing)),
 		) {
 			Column(
 				verticalArrangement = Arrangement.SpaceBetween,
-				modifier = Modifier.wrapContentHeight()
+				modifier = Modifier.width(IntrinsicSize.Max)
 			) {
 				type.phoneNumber?.let {
 					Text(
-						text = "Phone Number",
-						style = MaterialTheme.typography.labelLarge,
-						color = MaterialTheme.colorScheme.onSurfaceVariant
+						text = stringResource(id = R.string.barcode_results_title_sms_ph_number),
+						style = titleStyle,
+						color = titleColor
 					)
 				}
 				type.message?.let {
 					Text(
-						text = "Body",
-						style = MaterialTheme.typography.labelLarge,
-						color = MaterialTheme.colorScheme.onSurfaceVariant
+						text = stringResource(id = R.string.barcode_results_title_sms_text),
+						style = titleStyle,
+						color = titleColor,
 					)
 				}
 			}
@@ -90,15 +100,15 @@ fun BarCodeResultsSms(
 				type.phoneNumber?.let { phNumber ->
 					Text(
 						text = phNumber,
-						style = MaterialTheme.typography.labelMedium,
-						color = MaterialTheme.colorScheme.onSurface
+						style = valueStyle,
+						color = valueColor
 					)
 				}
 				type.message?.let { body ->
 					Text(
 						text = body,
-						style = MaterialTheme.typography.labelMedium,
-						color = MaterialTheme.colorScheme.onSurface
+						style = valueStyle,
+						color = valueColor
 					)
 				}
 			}

@@ -20,8 +20,11 @@ import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
@@ -33,7 +36,11 @@ import com.eva.scannerapp.ui.theme.ScannerAppTheme
 @Composable
 fun BarCodeEmailResults(
 	type: BarCodeTypes.Email,
-	modifier: Modifier = Modifier
+	modifier: Modifier = Modifier,
+	titleStyle: TextStyle = MaterialTheme.typography.labelLarge,
+	valueStyle: TextStyle = MaterialTheme.typography.bodyMedium,
+	titleColor: Color = MaterialTheme.colorScheme.onSurfaceVariant,
+	valueColor: Color = MaterialTheme.colorScheme.onSurface,
 ) {
 	val context = LocalContext.current
 
@@ -66,14 +73,14 @@ fun BarCodeEmailResults(
 				)
 			},
 			shape = MaterialTheme.shapes.large,
-			colors = SuggestionChipDefaults
-				.suggestionChipColors(
-					iconContentColor = MaterialTheme.colorScheme.primary,
-					containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp)
-				)
+			colors = SuggestionChipDefaults.suggestionChipColors(
+				iconContentColor = MaterialTheme.colorScheme.primary,
+				containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp)
+			)
 		)
 		Row(
-			horizontalArrangement = Arrangement.spacedBy(32.dp),
+			horizontalArrangement = Arrangement
+				.spacedBy(dimensionResource(id = R.dimen.barcode_resutls_spacing)),
 		) {
 			Column(
 				verticalArrangement = Arrangement.SpaceBetween,
@@ -82,21 +89,21 @@ fun BarCodeEmailResults(
 				type.address?.let {
 					Text(
 						text = stringResource(id = R.string.barcode_results_title_email_address),
-						style = MaterialTheme.typography.labelLarge,
+						style = titleStyle,
 						color = MaterialTheme.colorScheme.onSurfaceVariant
 					)
 				}
 				type.subject?.let {
 					Text(
 						text = stringResource(id = R.string.barcode_results_title_email_subject),
-						style = MaterialTheme.typography.labelLarge,
-						color = MaterialTheme.colorScheme.onSurfaceVariant
+						style = titleStyle,
+						color = titleColor,
 					)
 				}
 				Text(
 					text = stringResource(id = R.string.barcode_results_title_email_body),
-					style = MaterialTheme.typography.labelLarge,
-					color = MaterialTheme.colorScheme.onSurfaceVariant
+					style = titleStyle,
+					color = titleColor,
 				)
 			}
 			Column(
@@ -105,22 +112,22 @@ fun BarCodeEmailResults(
 				type.address?.let {
 					Text(
 						text = type.address,
-						style = MaterialTheme.typography.bodyMedium,
-						color = MaterialTheme.colorScheme.onSurface
+						style = valueStyle,
+						color = valueColor,
 					)
 				}
 				type.subject?.let {
 					Text(
 						text = type.subject,
-						style = MaterialTheme.typography.bodyMedium,
-						color = MaterialTheme.colorScheme.onSurface
+						style = valueStyle,
+						color = valueColor,
 					)
 				}
 				type.body?.let {
 					Text(
 						text = type.body,
-						style = MaterialTheme.typography.bodyMedium,
-						color = MaterialTheme.colorScheme.onSurface,
+						style = valueStyle,
+						color = valueColor,
 						maxLines = 2,
 						overflow = TextOverflow.Ellipsis
 					)

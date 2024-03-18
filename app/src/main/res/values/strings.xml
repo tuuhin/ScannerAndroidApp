@@ -61,4 +61,11 @@
   <string name="settings_media_visibility">Media Visibility</string>
   <string name="settings_media_visibility_desc">Save the capture image to the external storage</string>
   <string name="settings_title">Settings</string>
+  <string name="barcode_results_title_contacts_address">Address</string>
+  <string name="barcode_results_title_contacts_websites">Websites</string>
+  <string name="barcode_results_title_contacts_contact_number">phone Number</string>
+  <string name="barcode_results_title_contacts_emails">Emails</string>
+  <string name="bar_code_results_helper_send_sms">Send SMS</string>
+  <string name="barcode_results_title_sms_ph_number">Phone Number</string>
+  <string name="barcode_results_title_sms_text">Body</string>
 </resources>

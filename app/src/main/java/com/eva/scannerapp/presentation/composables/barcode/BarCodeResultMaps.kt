@@ -15,14 +15,18 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.SuggestionChipDefaults
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.eva.scannerapp.R
@@ -34,7 +38,11 @@ import java.text.DecimalFormat
 @Composable
 fun BarCodeResultMaps(
 	type: BarCodeTypes.GeoPoint,
-	modifier: Modifier = Modifier
+	modifier: Modifier = Modifier,
+	titleStyle: TextStyle = MaterialTheme.typography.labelLarge,
+	valueStyle: TextStyle = MaterialTheme.typography.bodyMedium,
+	titleColor: Color = MaterialTheme.colorScheme.onSurfaceVariant,
+	valueColor: Color = MaterialTheme.colorScheme.onSurface,
 ) {
 	val formatter = remember {
 		DecimalFormat.getInstance()
@@ -72,7 +80,8 @@ fun BarCodeResultMaps(
 			)
 		)
 		Row(
-			horizontalArrangement = Arrangement.spacedBy(32.dp),
+			horizontalArrangement = Arrangement
+				.spacedBy(dimensionResource(id = R.dimen.barcode_resutls_spacing)),
 		) {
 			Column(
 				verticalArrangement = Arrangement.SpaceBetween,
@@ -81,16 +90,16 @@ fun BarCodeResultMaps(
 				type.lat?.let {
 					Text(
 						text = stringResource(id = R.string.barcode_results_title_latitude),
-						style = MaterialTheme.typography.titleSmall,
-						color = MaterialTheme.colorScheme.onSurfaceVariant
+						style = titleStyle,
+						color = titleColor,
 					)
 
 				}
 				type.long?.let {
 					Text(
 						text = stringResource(id = R.string.barcode_results_title_longitude),
-						style = MaterialTheme.typography.titleSmall,
-						color = MaterialTheme.colorScheme.onSurfaceVariant
+						style = titleStyle,
+						color = titleColor,
 					)
 				}
 			}
@@ -100,15 +109,15 @@ fun BarCodeResultMaps(
 				type.lat?.let { lat ->
 					Text(
 						text = formatter.format(lat),
-						style = MaterialTheme.typography.bodyMedium,
-						color = MaterialTheme.colorScheme.onSurface
+						style = valueStyle,
+						color = valueColor,
 					)
 				}
 				type.long?.let { long ->
 					Text(
 						text = formatter.format(long),
-						style = MaterialTheme.typography.bodyMedium,
-						color = MaterialTheme.colorScheme.onSurface
+						style = valueStyle,
+						color = valueColor
 					)
 				}
 			}
@@ -119,10 +128,11 @@ fun BarCodeResultMaps(
 @PreviewLightDark
 @Composable
 private fun BarCodeResultMapPreview() = ScannerAppTheme {
-	BarCodeResultMaps(
-		type = PreviewFakes.FAKE_QR_CODE_GEO_POINT.type as BarCodeTypes.GeoPoint,
-		modifier = Modifier
-			.padding(horizontal = 16.dp, vertical = 8.dp)
-	)
-
+	Surface {
+		BarCodeResultMaps(
+			type = PreviewFakes.FAKE_QR_CODE_GEO_POINT.type as BarCodeTypes.GeoPoint,
+			modifier = Modifier
+				.padding(horizontal = 16.dp, vertical = 8.dp)
+		)
+	}
 }

@@ -19,8 +19,11 @@ import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.eva.scannerapp.R
@@ -31,7 +34,11 @@ import com.eva.scannerapp.ui.theme.ScannerAppTheme
 @Composable
 fun BarCodeUrlResults(
 	type: BarCodeTypes.UrlBookMark,
-	modifier: Modifier = Modifier
+	modifier: Modifier = Modifier,
+	titleStyle: TextStyle = MaterialTheme.typography.labelLarge,
+	valueStyle: TextStyle = MaterialTheme.typography.bodyMedium,
+	titleColor: Color = MaterialTheme.colorScheme.onSurfaceVariant,
+	valueColor: Color = MaterialTheme.colorScheme.onSurface,
 ) {
 	val context = LocalContext.current
 
@@ -63,7 +70,8 @@ fun BarCodeUrlResults(
 			)
 		)
 		Row(
-			horizontalArrangement = Arrangement.spacedBy(32.dp),
+			horizontalArrangement = Arrangement
+				.spacedBy(dimensionResource(id = R.dimen.barcode_resutls_spacing)),
 		) {
 			Column(
 				verticalArrangement = Arrangement.SpaceBetween,
@@ -72,15 +80,15 @@ fun BarCodeUrlResults(
 				type.title?.let {
 					Text(
 						text = stringResource(id = R.string.barcode_results_title_urlbookmark_title),
-						style = MaterialTheme.typography.labelLarge,
-						color = MaterialTheme.colorScheme.onSurfaceVariant
+						style = titleStyle,
+						color = titleColor
 					)
 				}
 				type.url?.let {
 					Text(
 						text = stringResource(id = R.string.barcode_results_title_urlbookmark_url),
-						style = MaterialTheme.typography.labelLarge,
-						color = MaterialTheme.colorScheme.onSurfaceVariant
+						style = titleStyle,
+						color = titleColor
 					)
 				}
 			}
@@ -90,15 +98,15 @@ fun BarCodeUrlResults(
 				type.title?.let { title ->
 					Text(
 						text = title,
-						style = MaterialTheme.typography.labelMedium,
-						color = MaterialTheme.colorScheme.onSurface
+						style = valueStyle,
+						color = valueColor
 					)
 				}
 				type.url?.let { url ->
 					Text(
 						text = url,
-						style = MaterialTheme.typography.labelMedium,
-						color = MaterialTheme.colorScheme.onSurface
+						style = valueStyle,
+						color = valueColor
 					)
 				}
 			}

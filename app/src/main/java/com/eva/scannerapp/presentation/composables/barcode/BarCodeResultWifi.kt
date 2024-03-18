@@ -18,7 +18,10 @@ import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.eva.scannerapp.R
@@ -30,6 +33,10 @@ import com.eva.scannerapp.ui.theme.ScannerAppTheme
 fun BarCodeWifiResults(
 	type: BarCodeTypes.WiFi,
 	modifier: Modifier = Modifier,
+	titleStyle: TextStyle = MaterialTheme.typography.labelLarge,
+	valueStyle: TextStyle = MaterialTheme.typography.bodyMedium,
+	titleColor: Color = MaterialTheme.colorScheme.onSurfaceVariant,
+	valueColor: Color = MaterialTheme.colorScheme.onSurface,
 ) {
 	Column(modifier = modifier) {
 		SuggestionChip(
@@ -46,14 +53,14 @@ fun BarCodeWifiResults(
 			},
 			enabled = false,
 			shape = MaterialTheme.shapes.large,
-			colors = SuggestionChipDefaults
-				.suggestionChipColors(
-					iconContentColor = MaterialTheme.colorScheme.primary,
-					containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp)
-				)
+			colors = SuggestionChipDefaults.suggestionChipColors(
+				iconContentColor = MaterialTheme.colorScheme.primary,
+				containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp)
+			)
 		)
 		Row(
-			horizontalArrangement = Arrangement.spacedBy(32.dp),
+			horizontalArrangement = Arrangement
+				.spacedBy(dimensionResource(id = R.dimen.barcode_resutls_spacing)),
 		) {
 			Column(
 				verticalArrangement = Arrangement.SpaceBetween,
@@ -61,13 +68,13 @@ fun BarCodeWifiResults(
 			) {
 				Text(
 					text = stringResource(id = R.string.barcode_results_title_wifi_network_name),
-					style = MaterialTheme.typography.titleSmall,
-					color = MaterialTheme.colorScheme.onSurfaceVariant
+					style = titleStyle,
+					color = titleColor
 				)
 				Text(
 					text = stringResource(id = R.string.barcode_results_title_wifi_password),
-					style = MaterialTheme.typography.titleSmall,
-					color = MaterialTheme.colorScheme.onSurfaceVariant
+					style = titleStyle,
+					color = titleColor,
 				)
 			}
 			Column(
@@ -75,13 +82,13 @@ fun BarCodeWifiResults(
 			) {
 				Text(
 					text = type.ssid ?: "",
-					style = MaterialTheme.typography.bodyMedium,
-					color = MaterialTheme.colorScheme.onSurface
+					style = valueStyle,
+					color = valueColor
 				)
 				Text(
 					text = type.password ?: "",
-					style = MaterialTheme.typography.bodyMedium,
-					color = MaterialTheme.colorScheme.onSurface
+					style = valueStyle,
+					color = valueColor
 				)
 			}
 		}

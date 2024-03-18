@@ -7,10 +7,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import androidx.compose.ui.unit.dp
 import com.eva.scannerapp.R
 import com.eva.scannerapp.ui.theme.ScannerAppTheme
 
@@ -25,7 +26,11 @@ fun BarCodeResultsRaw(
 			style = MaterialTheme.typography.titleMedium,
 			color = MaterialTheme.colorScheme.onSurfaceVariant
 		)
-		Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+		Row(
+			horizontalArrangement = Arrangement
+				.spacedBy(dimensionResource(id = R.dimen.barcode_resutls_spacing)),
+			verticalAlignment = Alignment.CenterVertically
+		) {
 			Text(
 				text = stringResource(id = R.string.barcode_display_text),
 				style = MaterialTheme.typography.bodyLarge,

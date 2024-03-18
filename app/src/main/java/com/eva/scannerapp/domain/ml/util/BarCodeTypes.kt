@@ -69,7 +69,38 @@ sealed class BarCodeTypes(val codeType: Int) {
 			val middle: String? = null,
 			val last: String? = null,
 			val suffix: String? = null
-		)
-	}
+		) {
 
+			val displayName: String
+				get() = buildString {
+					if (pronunciation != null) {
+						append(pronunciation)
+						append(",")
+					}
+					if (prefix != null) {
+						append(prefix)
+						append(" ")
+					}
+					if (formattedName != null)
+						append(formattedName)
+					else {
+						if (first != null) {
+							append(first)
+							append(" ")
+						}
+						if (middle != null) {
+							append(middle)
+							append(" ")
+						}
+						if (last != null) append(last)
+					}
+					append(" ")
+					if (suffix != null) {
+						append(suffix)
+						append(" ")
+					}
+				}
+		}
+	}
 }
+

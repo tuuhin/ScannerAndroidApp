@@ -19,9 +19,14 @@ import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.animations.rememberAnimatedNavHostEngine
 import dagger.hilt.android.AndroidEntryPoint
 
+@OptIn(
+	ExperimentalMaterialNavigationApi::class,
+	ExperimentalAnimationApi::class
+)
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-	@OptIn(ExperimentalMaterialNavigationApi::class, ExperimentalAnimationApi::class)
+
+
 	override fun onCreate(savedInstanceState: Bundle?) {
 		//splash api
 		installSplashScreen()
@@ -29,6 +34,7 @@ class MainActivity : ComponentActivity() {
 		WindowCompat.setDecorFitsSystemWindows(window, false)
 
 		super.onCreate(savedInstanceState)
+
 		setContent {
 			ScannerAppTheme {
 				val snackBarProvider = remember { SnackbarHostState() }

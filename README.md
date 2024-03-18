@@ -21,14 +21,14 @@ in the app
 
 ## Screenshots
 
-These are some of the screen shots for the app for more screen shots check [here](./screenshots/)
+These are some of the screen shots for the app for more screen shots check [here](./screenshots)
 
 <div align="center">
   <img width="24%" src="./screenshots/Screenshot_20240319_023411_framed.png" />
   <img width="24%" src="./screenshots/Screenshot_20240319_023525_framed.png" />
   <img width="24%" src="./screenshots/Screenshot_20240319_023549_framed.png" />
   <img width="24%" src="./screenshots/Screenshot_20240319_025229_framed.png" />
-    <img width="24%" src="./screenshots/Screenshot_20240319_025248_framed.png" />
+  <img width="24%" src="./screenshots/Screenshot_20240319_025248_framed.png" />
   <img width="24%" src="./screenshots/Screenshot_20240319_025302_framed.png" />
   <img width="24%" src="./screenshots/Screenshot_20240319_025440_framed.png" />
 </div>
@@ -46,6 +46,8 @@ these steps:
 
 ## 🔚 Conclusion
 
-The project was started as a Google Lens clone. However, I did struggle a bit with the Ui. However, the
-end product has most of the feature common to the actual apps and yes, it's on device ml, so it is not
+The project was started as a Google Lens clone. However, I did struggle a bit with the Ui. However,
+the
+end product has most of the feature common to the actual apps and yes, it's on device ml, so it is
+not
 always able to recognize certain barcode or labels.

@@ -121,13 +121,12 @@ class ImageCaptureViewModel @Inject constructor(
 				state.copy(analysisOption = event.mode)
 			}
 
-			is ImageCaptureEvents.OnImageCaptureFailed -> {
-				viewModelScope.launch {
-					_uiEvents.emit(
-						UiEvents.ShowSnackBar(message = event.exception.message ?: "Exception")
-					)
-				}
+			is ImageCaptureEvents.OnImageCaptureFailed -> viewModelScope.launch {
+				_uiEvents.emit(
+					UiEvents.ShowSnackBar(message = event.exception.message ?: "Exception")
+				)
 			}
+
 
 			is ImageCaptureEvents.OnImageCaptureSuccess -> onImageCapture(event.bitmap)
 		}
@@ -147,7 +146,10 @@ class ImageCaptureViewModel @Inject constructor(
 	}
 
 	private fun onImageCapture(bitmap: Bitmap?) = viewModelScope.launch {
+		//skip if bitmap is null
 		val bitmapImage = bitmap ?: return@launch
+		// skip if image is already taken and its processing
+		if (_isImageCapturing.value) return@launch
 
 		repository.saveCaptureContent(image = bitmapImage)
 			.onEach { res ->
@@ -156,9 +158,7 @@ class ImageCaptureViewModel @Inject constructor(
 
 				when (res) {
 					is Resource.Error -> _uiEvents.emit(
-						UiEvents.ShowSnackBar(
-							res.message ?: ""
-						)
+						UiEvents.ShowSnackBar(message = res.message ?: "")
 					)
 
 					is Resource.Success -> {

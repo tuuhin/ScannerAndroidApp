@@ -11,4 +11,5 @@
   <dimen name="perms_button_min_width">240dp</dimen>
   <dimen name="modal_sheet_padding">16dp</dimen>
   <dimen name="capture_box_size">240dp</dimen>
+  <dimen name="barcode_resutls_spacing">32dp</dimen>
 </resources>

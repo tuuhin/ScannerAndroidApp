@@ -44,11 +44,11 @@ fun BarCodeWifiResults(
 				// TODO: Configure it Latter
 
 			},
-			label = { Text(text = stringResource(id = R.string.bar_code_results_helper_join_network)) },
+			label = { Text(text = stringResource(id = R.string.barcode_results_helper_join_network)) },
 			icon = {
 				Icon(
 					imageVector = Icons.Default.Wifi,
-					contentDescription = stringResource(id = R.string.bar_code_results_helper_join_network),
+					contentDescription = stringResource(id = R.string.barcode_results_helper_join_network),
 				)
 			},
 			enabled = false,

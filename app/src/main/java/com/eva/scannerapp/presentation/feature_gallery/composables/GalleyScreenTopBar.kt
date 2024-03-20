@@ -24,7 +24,7 @@ fun GalleryScreenTopBar(
 	var isExpanded by remember { mutableStateOf(false) }
 
 	MediumTopAppBar(
-		title = { Text(text = stringResource(id = R.string.gallery_screen)) },
+		title = { Text(text = stringResource(id = R.string.gallery_route_title)) },
 		navigationIcon = navigation,
 		scrollBehavior = scrollBehavior,
 		actions = {

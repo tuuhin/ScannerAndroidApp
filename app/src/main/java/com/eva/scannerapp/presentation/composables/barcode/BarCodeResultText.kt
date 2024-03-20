@@ -2,6 +2,7 @@ package com.eva.scannerapp.presentation.composables.barcode
 
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -45,17 +46,26 @@ fun BarCodeTextResults(
 	Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
 		SuggestionChip(
 			onClick = {
-				val clipManager = context.getSystemService<ClipboardManager>()
-				val primaryClip = clipManager?.hasPrimaryClip() ?: false
+				try {
+					val clipManager = context.getSystemService<ClipboardManager>()
+					val primaryClip = clipManager?.hasPrimaryClip() ?: false
 
-				if (primaryClip) clipManager?.primaryClip?.addItem(ClipData.Item(type.text))
-				else clipManager?.setPrimaryClip(ClipData.newPlainText(type.text, type.text))
+					if (primaryClip) clipManager?.primaryClip?.addItem(ClipData.Item(type.text))
+					else clipManager?.setPrimaryClip(ClipData.newPlainText(type.text, type.text))
+
+				} catch (e: Exception) {
+					Toast.makeText(
+						context,
+						context.getString(R.string.clip_board_manager_problem),
+						Toast.LENGTH_SHORT
+					).show()
+				}
 			},
-			label = { Text(text = stringResource(id = R.string.bar_code_results_helper_copy)) },
+			label = { Text(text = stringResource(id = R.string.barcode_results_helper_copy)) },
 			icon = {
 				Icon(
 					imageVector = Icons.Default.CopyAll,
-					contentDescription = stringResource(id = R.string.bar_code_results_helper_copy),
+					contentDescription = stringResource(id = R.string.barcode_results_helper_copy),
 				)
 			},
 			shape = MaterialTheme.shapes.large,

@@ -55,17 +55,17 @@ fun BarCodeResultsPhone(
 					e.printStackTrace()
 					Toast.makeText(
 						context,
-						context.getString(R.string.bar_code_results_no_activity_to_start_with),
+						context.getString(R.string.activity_not_found_error),
 						Toast.LENGTH_SHORT
 					).show()
 					e.printStackTrace()
 				}
 			},
-			label = { Text(text = stringResource(id = R.string.bar_code_results_helper_call)) },
+			label = { Text(text = stringResource(id = R.string.barcode_results_helper_call)) },
 			icon = {
 				Icon(
 					imageVector = Icons.Outlined.Phone,
-					contentDescription = stringResource(id = R.string.bar_code_results_helper_call),
+					contentDescription = stringResource(id = R.string.barcode_results_helper_call),
 				)
 			},
 			shape = MaterialTheme.shapes.large,

@@ -55,7 +55,7 @@ fun CapturingImageDialog(
 				CircularProgressIndicator(color = MaterialTheme.colorScheme.secondary)
 				Spacer(modifier = Modifier.height(8.dp))
 				Text(
-					text = stringResource(id = R.string.camera_capturing_dialog),
+					text = stringResource(id = R.string.capturing_image_dialog_text),
 					style = MaterialTheme.typography.titleMedium,
 					color = MaterialTheme.colorScheme.onSurfaceVariant
 				)

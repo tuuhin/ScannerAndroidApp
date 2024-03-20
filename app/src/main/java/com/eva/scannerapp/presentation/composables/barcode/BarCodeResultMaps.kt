@@ -61,16 +61,16 @@ fun BarCodeResultMaps(
 					e.printStackTrace()
 					Toast.makeText(
 						context,
-						context.getString(R.string.bar_code_results_no_activity_to_start_with),
+						context.getString(R.string.activity_not_found_error),
 						Toast.LENGTH_SHORT
 					).show()
 				}
 			},
-			label = { Text(text = stringResource(id = R.string.bar_code_results_helper_map)) },
+			label = { Text(text = stringResource(id = R.string.barcode_results_helper_map)) },
 			icon = {
 				Icon(
 					imageVector = Icons.Outlined.Explore,
-					contentDescription = stringResource(id = R.string.bar_code_results_helper_map),
+					contentDescription = stringResource(id = R.string.barcode_results_helper_map),
 				)
 			},
 			shape = MaterialTheme.shapes.large,

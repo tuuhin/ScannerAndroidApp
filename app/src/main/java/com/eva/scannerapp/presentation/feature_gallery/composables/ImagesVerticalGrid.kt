@@ -80,7 +80,7 @@ fun ImagesVerticalGrid(
 		if (pages.loadState.append is LoadState.Loading) {
 			item(span = { GridItemSpan(maxLineSpan) }) {
 				Text(
-					text = stringResource(id = R.string.loading_more),
+					text = stringResource(id = R.string.paged_gallery_items_loading_next_set),
 					textAlign = TextAlign.Center,
 					modifier = Modifier.fillMaxWidth()
 				)

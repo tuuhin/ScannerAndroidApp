@@ -51,7 +51,7 @@ fun SettingsScreen(
 			MediumTopAppBar(
 				title = {
 					Text(
-						text = stringResource(id = R.string.settings_title),
+						text = stringResource(id = R.string.settings_route_title),
 						style = MaterialTheme.typography.headlineSmall
 					)
 				},

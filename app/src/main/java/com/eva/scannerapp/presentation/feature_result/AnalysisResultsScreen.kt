@@ -69,7 +69,7 @@ fun ResultsScreen(
 	Scaffold(
 		topBar = {
 			TopAppBar(
-				title = { Text(text = stringResource(id = R.string.result_screen)) },
+				title = { Text(text = stringResource(id = R.string.results_route_title)) },
 				navigationIcon = navigation,
 			)
 		},

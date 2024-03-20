@@ -34,11 +34,11 @@ fun LazyListScope.settingsAboutAvailableAnalyzer(
 
 		ListItem(
 			headlineContent = {
-				Text(text = stringResource(id = R.string.about_analyzers_bar_code_title))
+				Text(text = stringResource(id = R.string.about_analyzers_barcode_title))
 			},
 			supportingContent = {
 				Text(
-					text = stringResource(id = R.string.about_analyzers_bar_code_desc),
+					text = stringResource(id = R.string.about_analyzers_barcode_desc),
 					maxLines = 2,
 					overflow = TextOverflow.Ellipsis,
 					style = MaterialTheme.typography.bodyMedium,
@@ -47,7 +47,7 @@ fun LazyListScope.settingsAboutAvailableAnalyzer(
 			trailingContent = {
 				TextButton(
 					onClick = {
-						val uri = context.getString(R.string.about_analyzers_bar_code_url).toUri()
+						val uri = context.getString(R.string.about_analyzers_barcode_url).toUri()
 						val intent = Intent(Intent.ACTION_VIEW).apply {
 							setDataAndType(uri, "text/html")
 						}

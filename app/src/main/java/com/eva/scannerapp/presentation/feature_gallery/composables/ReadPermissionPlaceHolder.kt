@@ -48,7 +48,7 @@ fun ReadPermissionsPlaceHolder(
 			)
 		)
 		Text(
-			text = stringResource(id = R.string.request_read_image_perms_text),
+			text = stringResource(id = R.string.gallery_read_permission_text),
 			style = MaterialTheme.typography.titleLarge,
 			textAlign = TextAlign.Center,
 		)
@@ -63,7 +63,7 @@ fun ReadPermissionsPlaceHolder(
 			)
 			Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.space_8)))
 			Text(
-				text = stringResource(id = R.string.allow_access_text),
+				text = stringResource(id = R.string.allow_permissions_text),
 				style = MaterialTheme.typography.titleMedium,
 				textAlign = TextAlign.Center,
 			)

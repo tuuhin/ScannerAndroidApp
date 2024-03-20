@@ -58,7 +58,7 @@ fun SaveToExternalStorageOption(
 	ListItem(
 		headlineContent = {
 			Text(
-				text = stringResource(id = R.string.settings_media_visibility),
+				text = stringResource(id = R.string.settings_media_visibility_title),
 				style = MaterialTheme.typography.titleMedium
 			)
 		},

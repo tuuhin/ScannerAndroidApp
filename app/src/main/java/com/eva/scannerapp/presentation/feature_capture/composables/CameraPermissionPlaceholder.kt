@@ -39,7 +39,7 @@ fun CameraPermissionPlaceHolder(
 		modifier = modifier.padding(horizontal = 20.dp),
 	) {
 		Text(
-			text = stringResource(id = R.string.request_read_camera_perms_text),
+			text = stringResource(id = R.string.camera_permission_text),
 			style = MaterialTheme.typography.titleLarge,
 			textAlign = TextAlign.Center,
 		)
@@ -55,7 +55,7 @@ fun CameraPermissionPlaceHolder(
 			)
 			Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.space_8)))
 			Text(
-				text = stringResource(id = R.string.allow_access_text),
+				text = stringResource(id = R.string.allow_permissions_text),
 				style = MaterialTheme.typography.titleMedium,
 				textAlign = TextAlign.Center,
 			)

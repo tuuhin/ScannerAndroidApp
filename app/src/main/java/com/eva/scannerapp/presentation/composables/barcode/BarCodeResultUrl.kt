@@ -1,7 +1,9 @@
 package com.eva.scannerapp.presentation.composables.barcode
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -48,19 +50,29 @@ fun BarCodeUrlResults(
 		SuggestionChip(
 			onClick = {
 				type.url?.let { site ->
-					val intent = Intent(Intent.ACTION_VIEW).apply {
-						data = Uri.parse(site)
-						putExtra(Intent.EXTRA_TITLE, type.title)
-						putExtra(Intent.EXTRA_TEXT, site)
+					try {
+						val intent = Intent(Intent.ACTION_VIEW).apply {
+							data = Uri.parse(site)
+							putExtra(Intent.EXTRA_TITLE, type.title)
+							putExtra(Intent.EXTRA_TEXT, site)
+						}
+						context.startActivity(intent)
+					} catch (e: ActivityNotFoundException) {
+						e.printStackTrace()
+						Toast.makeText(
+							context,
+							context.getString(R.string.activity_not_found_error),
+							Toast.LENGTH_SHORT
+						).show()
+						e.printStackTrace()
 					}
-					context.startActivity(intent)
 				}
 			},
-			label = { Text(text = stringResource(id = R.string.bar_code_results_helper_open_url)) },
+			label = { Text(text = stringResource(id = R.string.barcode_results_helper_open_url)) },
 			icon = {
 				Icon(
 					imageVector = Icons.Default.Public,
-					contentDescription = stringResource(id = R.string.bar_code_results_helper_open_url),
+					contentDescription = stringResource(id = R.string.barcode_results_helper_open_url),
 				)
 			},
 			shape = MaterialTheme.shapes.large,
@@ -79,14 +91,14 @@ fun BarCodeUrlResults(
 			) {
 				type.title?.let {
 					Text(
-						text = stringResource(id = R.string.barcode_results_title_urlbookmark_title),
+						text = stringResource(id = R.string.barcode_results_title_url_bookmark_title),
 						style = titleStyle,
 						color = titleColor
 					)
 				}
 				type.url?.let {
 					Text(
-						text = stringResource(id = R.string.barcode_results_title_urlbookmark_url),
+						text = stringResource(id = R.string.barcode_results_title_url_bookmark_url),
 						style = titleStyle,
 						color = titleColor
 					)

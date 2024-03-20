@@ -34,7 +34,7 @@ fun ClearCacheOption(
 	ListItem(
 		headlineContent = {
 			Text(
-				text = stringResource(id = R.string.settings_clear_image),
+				text = stringResource(id = R.string.settings_clear_image_title),
 				style = MaterialTheme.typography.titleSmall
 			)
 		},
@@ -47,7 +47,7 @@ fun ClearCacheOption(
 		leadingContent = {
 			Icon(
 				imageVector = Icons.Default.CleaningServices,
-				contentDescription = stringResource(id = R.string.settings_clear_option_text),
+				contentDescription = stringResource(id = R.string.settings_option_clear),
 				modifier = Modifier.size(32.dp)
 			)
 		},
@@ -62,7 +62,7 @@ fun ClearCacheOption(
 						//clear other
 						onClearCaptureCache()
 
-						Toast.makeText(context, R.string.clear_image_cache, Toast.LENGTH_SHORT)
+						Toast.makeText(context, R.string.settings_clear_image_title, Toast.LENGTH_SHORT)
 							.show()
 
 					} catch (e: Exception) {
@@ -70,7 +70,7 @@ fun ClearCacheOption(
 					}
 				},
 			) {
-				Text(text = stringResource(id = R.string.settings_clear_option_text))
+				Text(text = stringResource(id = R.string.settings_option_clear))
 			}
 		},
 		colors = ListItemDefaults.colors(

@@ -53,7 +53,7 @@ fun ManagePermissionMenu(
 		DropdownMenuItem(
 			text = {
 				Text(
-					text = stringResource(id = R.string.manage_permissions_text),
+					text = stringResource(id = R.string.manage_permissions_icon_desc),
 					style = MaterialTheme.typography.labelLarge
 				)
 			},
@@ -67,7 +67,7 @@ fun ManagePermissionMenu(
 			leadingIcon = {
 				Icon(
 					painter = painterResource(id = R.drawable.ic_permissions),
-					contentDescription = stringResource(id = R.string.manage_permissions_text)
+					contentDescription = stringResource(id = R.string.manage_permissions_icon_desc)
 				)
 			},
 		)

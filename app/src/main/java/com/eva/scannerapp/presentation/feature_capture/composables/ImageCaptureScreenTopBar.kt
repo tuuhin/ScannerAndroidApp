@@ -55,11 +55,11 @@ fun ImageCaptureScreenTopBar(
 				) {
 					if (isFlashEnabled) Icon(
 						painter = painterResource(id = R.drawable.ic_flash_on),
-						contentDescription = stringResource(id = R.string.flash_on_desc)
+						contentDescription = stringResource(id = R.string.camera_flash_on_icon_desc)
 					)
 					else Icon(
 						painter = painterResource(id = R.drawable.ic_no_flash),
-						contentDescription = stringResource(id = R.string.flash_off_desc)
+						contentDescription = stringResource(id = R.string.camera_flash_off_icon_desc)
 					)
 				}
 		},

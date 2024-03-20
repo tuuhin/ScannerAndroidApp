@@ -1,71 +1,81 @@
 <resources>
+  <!--  App Name-->
   <string name="app_name">ScannerApp</string>
-  <string name="select_image">Select with any Image</string>
-  <string name="request_read_image_perms_text">To search with your photos, allow access to your gallery</string>
-  <string name="allow_access_text">Allow Access</string>
-  <string name="request_read_camera_perms_text">To search allow camera access</string>
-  <string name="gallery_screen">Select Item</string>
-  <string name="manage_permissions_text">Permissions</string>
-  <string name="settings_text">Settings</string>
+  <!--  Analyzers-->
   <string name="bar_code_analyser">BarCode</string>
   <string name="labels_analyser">Labels</string>
-  <string name="shutter_button_text">Tap the shutter button to analyse</string>
-  <string name="capture_icon__des">Capture Button</string>
-  <string name="flash_on_desc">Camera Flash On</string>
-  <string name="flash_off_desc">Camera Flash Off</string>
-  <string name="loading_more">Loading More…</string>
+  <!--  Capture Screen-->
+  <string name="settings_icon_desc">Settings</string>
+  <string name="camera_capture_icon_desc">Capture Button</string>
+  <string name="camera_flash_on_icon_desc">Camera Flash On</string>
+  <string name="camera_flash_off_icon_desc">Camera Flash Off</string>
+  <string name="shutter_button_helper_text">Tap the shutter button to analyse</string>
+  <!--  Others-->
+  <string name="allow_permissions_text">Allow Access</string>
+  <string name="camera_permission_text">To search allow camera access</string>
   <string name="navigation_back">Arrow Back</string>
-  <string name="result_screen">Results</string>
-  <string name="capturing_image">Capturing Image</string>
+  <string name="manage_permissions_icon_desc">Permissions</string>
+  <!--  Gallery Screen-->
+  <string name="gallery_route_title">Select Item</string>
+  <string name="gallery_read_permission_text_extras">Select with any Image</string>
+  <string name="gallery_read_permission_text">To search with your photos, allow access to your gallery</string>
+  <string name="paged_gallery_items_loading_next_set">Loading More…</string>
+  <string name="read_media_images_partial_access">You have given access to only selected number of photos</string>
+  <!--  Results Screen-->
+  <string name="results_route_title">Results</string>
   <string name="analysing_labels_sheet_title">Analyzing Labels…</string>
   <string name="analysing_labels_sheet_desc">Recognising Images found in the camera image stream</string>
-  <string name="results_sheet_bar_code_title">Results…</string>
+  <string name="results_sheet_bar_code_title">BarCode Results</string>
   <string name="results_sheet_bar_code_desc">The analyzer found this results for recognized barcode</string>
-  <string name="read_media_images_partial_access">You have given access to only selected number of photos</string>
-  <string name="barcode_cannot_identify_type">Cannot Identify Type</string>
-  <string name="barcode_display_text">Display Text</string>
-  <string name="bar_code_results_helper_map">Open Maps</string>
-  <string name="barcode_results_title_latitude">Latitude</string>
-  <string name="barcode_results_title_longitude">Longitude</string>
-  <string name="bar_code_results_helper_call">Call</string>
-  <string name="barcode_results_title_number">Tel. Number</string>
-  <string name="barcode_results_title_wifi_password">Password</string>
-  <string name="barcode_results_title_wifi_network_name">Network Name</string>
-  <string name="bar_code_results_helper_join_network">Join Network</string>
-  <string name="bar_code_results_no_activity_to_start_with">No Activity Found to evalute your results</string>
-  <string name="barcode_results_title_email_body">Body</string>
-  <string name="barcode_results_title_email_subject">Subject</string>
-  <string name="barcode_results_title_email_address">Address</string>
-  <string name="bar_code_results_helper_send_email">Send Email</string>
-  <string name="barcode_results_title_text">Title</string>
-  <string name="bar_code_results_helper_copy">Copy</string>
-  <string name="barcode_results_title_urlbookmark_title">Title</string>
-  <string name="barcode_results_title_urlbookmark_url">Url</string>
-  <string name="bar_code_results_helper_open_url">Open Url</string>
+  <!--  BottomSheet-->
   <string name="cannot_read_barcode_title">Cannot recognize any barcode</string>
   <string name="cannot_read_barcode_desc">Are you sure this image contains any barcode</string>
   <string name="analysing_barcode_title">Analysing Image</string>
   <string name="analysing_barcode_desc">Analysing provided image</string>
-  <string name="camera_capturing_dialog">Capturing…</string>
-
-  <string name="about_analyzers_bar_code_desc">With ML Kit\'s barcode scanning API, you can read data encoded using most standard barcode formats. Barcode scanning happens on the device, and doesn\'t require a network connection</string>
-  <string name="about_analyzers_image_labeling_desc">With ML Kit\'s image labeling APIs you can detect and extract information about entities in an image across a broad group of categories. The default image labeling model can identify general objects, places, activities, animal species, products, and more.</string>
+  <!--  Camera Capturing Dialog-->
+  <string name="capturing_image_dialog_text">Capturing…</string>
+  <!--Analyzers-->
   <string name="about_analyzers_image_labeling_title">Image Labeling</string>
-  <string name="about_analyzers_bar_code_title">Bar Code</string>
-  <string name="about_analyzers_bar_code_url">https://developers.google.com/ml-kit/vision/barcode-scanning</string>
+  <string name="about_analyzers_image_labeling_desc">With ML Kit\'s image labeling APIs you can detect and extract information about entities in an image across a broad group of categories. The default image labeling model can identify general objects, places, activities, animal species, products, and more.</string>
   <string name="about_analyzers_image_labeling_url">https://developers.google.com/ml-kit/vision/image-labeling</string>
-  <string name="clear_image_cache">Cleared Image Cache</string>
-  <string name="settings_clear_image">Clear Image Cache</string>
+  <string name="about_analyzers_barcode_title">Bar Code</string>
+  <string name="about_analyzers_barcode_desc">With ML Kit\'s barcode scanning API, you can read data encoded using most standard barcode formats. Barcode scanning happens on the device, and doesn\'t require a network connection</string>
+  <string name="about_analyzers_barcode_url">https://developers.google.com/ml-kit/vision/barcode-scanning</string>
+  <!--  Settings-->
+  <string name="settings_route_title">Settings</string>
+  <string name="settings_clear_image_title">Clear Image Cache</string>
   <string name="settings_clear_image_desc">Clear image capture cache and image loading cache</string>
-  <string name="settings_clear_option_text">Clear</string>
-  <string name="settings_media_visibility">Media Visibility</string>
+  <string name="settings_option_clear">Clear</string>
+  <string name="settings_media_visibility_title">Media Visibility</string>
   <string name="settings_media_visibility_desc">Save the capture image to the external storage</string>
-  <string name="settings_title">Settings</string>
+  <!--  BarCode Results-->
+  <string name="barcode_cannot_identify_type">Cannot Identify Type</string>
+  <string name="barcode_display_text">Display Text</string>
+  <string name="barcode_results_helper_map">Open Maps</string>
+  <string name="barcode_results_helper_call">Call</string>
+  <string name="barcode_results_helper_join_network">Join Network</string>
+  <string name="barcode_results_helper_send_email">Send Email</string>
+  <string name="barcode_results_helper_copy">Copy</string>
+  <string name="barcode_results_helper_open_url">Open Url</string>
+  <string name="barcode_results_helper_send_sms">Send SMS</string>
+  <string name="barcode_results_title_latitude">Latitude</string>
+  <string name="barcode_results_title_longitude">Longitude</string>
+  <string name="barcode_results_title_number">Tel. Number</string>
+  <string name="barcode_results_title_wifi_password">Password</string>
+  <string name="barcode_results_title_wifi_network_name">Network Name</string>
+  <string name="barcode_results_title_email_body">Body</string>
+  <string name="barcode_results_title_email_subject">Subject</string>
+  <string name="barcode_results_title_email_address">Address</string>
+  <string name="barcode_results_title_text">Title</string>
+  <string name="barcode_results_title_url_bookmark_title">Title</string>
+  <string name="barcode_results_title_url_bookmark_url">Url</string>
   <string name="barcode_results_title_contacts_address">Address</string>
   <string name="barcode_results_title_contacts_websites">Websites</string>
   <string name="barcode_results_title_contacts_contact_number">phone Number</string>
   <string name="barcode_results_title_contacts_emails">Emails</string>
-  <string name="bar_code_results_helper_send_sms">Send SMS</string>
   <string name="barcode_results_title_sms_ph_number">Phone Number</string>
   <string name="barcode_results_title_sms_text">Body</string>
+  <!--  Toasts-->
+  <string name="activity_not_found_error">No Activity Found to evaluate your results</string>
+  <string name="clip_board_manager_problem">Cannot copy text to clipboard</string>
 </resources>

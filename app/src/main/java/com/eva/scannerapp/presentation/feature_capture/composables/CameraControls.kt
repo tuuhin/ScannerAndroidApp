@@ -76,7 +76,7 @@ fun CameraControls(
 					)
 			) {
 				Text(
-					text = stringResource(id = R.string.shutter_button_text),
+					text = stringResource(id = R.string.shutter_button_helper_text),
 					color = Color.White,
 					style = MaterialTheme.typography.bodyLarge,
 					modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
@@ -102,7 +102,7 @@ fun CameraControls(
 			) {
 				Icon(
 					painter = painterResource(id = R.drawable.ic_capture),
-					contentDescription = stringResource(id = R.string.capture_icon__des),
+					contentDescription = stringResource(id = R.string.camera_capture_icon_desc),
 					tint = Color.Black
 				)
 			}

@@ -24,6 +24,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
@@ -81,16 +82,18 @@ fun GalleryImageLoader(
 		modifier = modifier
 			.background(color = color, shape = shape)
 			.clip(shape = shape),
-		contentAlignment = Alignment.Center) {
+		contentAlignment = Alignment.Center,
+	) {
 		AsyncImage(
 			model = ImageRequest.Builder(context)
-				.data(image.imageUri)
-				.lifecycle(lifecycleOwner)
+				.data(data = image.imageUri)
+				.lifecycle(owner = lifecycleOwner)
 				.build(),
-			contentDescription = null,
+			contentDescription = stringResource(id = R.string.gallery_image_title, image.title),
 			imageLoader = context.imageLoader,
 			contentScale = ContentScale.Crop,
-			filterQuality = FilterQuality.Medium,
+			filterQuality = FilterQuality.Low,
+			alignment = Alignment.Center
 		)
 
 		ImageDetails(

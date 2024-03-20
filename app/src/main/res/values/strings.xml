@@ -21,12 +21,15 @@
   <string name="gallery_read_permission_text">To search with your photos, allow access to your gallery</string>
   <string name="paged_gallery_items_loading_next_set">Loading More…</string>
   <string name="read_media_images_partial_access">You have given access to only selected number of photos</string>
+  <string name="gallery_image_title">Galley Image Titled %s</string>
   <!--  Results Screen-->
   <string name="results_route_title">Results</string>
   <string name="analysing_labels_sheet_title">Analyzing Labels…</string>
   <string name="analysing_labels_sheet_desc">Recognising Images found in the camera image stream</string>
   <string name="results_sheet_bar_code_title">BarCode Results</string>
   <string name="results_sheet_bar_code_desc">The analyzer found this results for recognized barcode</string>
+  <string name="results_failed_to_load_image">Failed to Load Image</string>
+  <string name="results_route_image">Image to Analyze</string>
   <!--  BottomSheet-->
   <string name="cannot_read_barcode_title">Cannot recognize any barcode</string>
   <string name="cannot_read_barcode_desc">Are you sure this image contains any barcode</string>

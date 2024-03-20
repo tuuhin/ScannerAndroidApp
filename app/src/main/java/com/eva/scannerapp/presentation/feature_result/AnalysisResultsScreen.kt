@@ -12,8 +12,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -36,9 +38,12 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
+import coil.compose.AsyncImagePainter
+import coil.compose.SubcomposeAsyncImage
+import coil.compose.SubcomposeAsyncImageContent
 import coil.imageLoader
 import coil.request.ImageRequest
+import coil.size.Size
 import com.eva.scannerapp.R
 import com.eva.scannerapp.presentation.composables.AnalysisOptionsPicker
 import com.eva.scannerapp.presentation.composables.options.AnalysisOption
@@ -93,18 +98,31 @@ fun ResultsScreen(
 				color = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp)
 			) {
 				if (view.isInEditMode) return@Surface
-				AsyncImage(
+				SubcomposeAsyncImage(
 					model = ImageRequest.Builder(context)
-						.data(resultsState.fileUri)
-						.lifecycle(lifeCycleOwner)
+						.data(data = resultsState.fileUri)
+						.size(size = Size.ORIGINAL)
+						.lifecycle(owner = lifeCycleOwner)
 						.build(),
-					contentDescription = "preview for the result image",
+					contentDescription = stringResource(id = R.string.results_route_image),
 					imageLoader = context.imageLoader,
 					contentScale = ContentScale.Fit,
+					alignment = Alignment.Center,
 					modifier = Modifier
+						.wrapContentSize()
 						.clip(MaterialTheme.shapes.medium)
-						.align(Alignment.CenterHorizontally)
-				)
+						.align(Alignment.CenterHorizontally),
+				) {
+					when (painter.state) {
+						AsyncImagePainter.State.Empty, is AsyncImagePainter.State.Loading ->
+							CircularProgressIndicator(
+								color = MaterialTheme.colorScheme.secondary
+							)
+
+						is AsyncImagePainter.State.Success -> SubcomposeAsyncImageContent()
+						else -> {}
+					}
+				}
 			}
 			HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
 			AnalysisOptionsPicker(

@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.eva.scannerapp.R
 import com.eva.scannerapp.domain.ml.models.RecognizedBarcode
@@ -28,7 +29,7 @@ import com.eva.scannerapp.presentation.composables.barcode.BarCodeResultsSms
 import com.eva.scannerapp.presentation.composables.barcode.BarCodeTextResults
 import com.eva.scannerapp.presentation.composables.barcode.BarCodeUrlResults
 import com.eva.scannerapp.presentation.composables.barcode.BarCodeWifiResults
-import com.eva.scannerapp.presentation.util.preview.PreviewFakes
+import com.eva.scannerapp.presentation.util.preview.RecognizedBarCodesPreviewParams
 import com.eva.scannerapp.ui.theme.ScannerAppTheme
 
 @Composable
@@ -36,7 +37,7 @@ fun RecognizedBarCodeResults(
 	model: RecognizedBarcode,
 	modifier: Modifier = Modifier
 ) {
-	val codeTypeText = remember { "Code Type :  ${model.codeFormat}" }
+	val codeFormatText = remember { "Code Format :  ${model.codeFormat}" }
 
 	Column(
 		verticalArrangement = Arrangement.spacedBy(2.dp),
@@ -54,7 +55,7 @@ fun RecognizedBarCodeResults(
 		)
 		Spacer(modifier = Modifier.height(4.dp))
 		Text(
-			text = codeTypeText,
+			text = codeFormatText,
 			style = MaterialTheme.typography.bodyMedium,
 			color = MaterialTheme.colorScheme.onSurfaceVariant
 		)
@@ -78,10 +79,13 @@ fun RecognizedBarCodeResults(
 
 @PreviewLightDark
 @Composable
-private fun RecognizedBarCodeResultsPreview() = ScannerAppTheme {
+private fun RecognizedBarCodeResultsPreview(
+	@PreviewParameter(RecognizedBarCodesPreviewParams::class)
+	model: RecognizedBarcode
+) = ScannerAppTheme {
 	Surface {
 		RecognizedBarCodeResults(
-			model = PreviewFakes.FAKE_QR_CODE_GEO_POINT,
+			model = model,
 			modifier = Modifier.padding(16.dp)
 		)
 	}

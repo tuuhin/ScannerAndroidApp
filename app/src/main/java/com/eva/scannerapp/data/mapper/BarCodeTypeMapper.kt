@@ -37,7 +37,8 @@ val Barcode.domainType: BarCodeTypes
 				name = nameInfo,
 				organization = contactInfo?.organization,
 				title = contactInfo?.title,
-				phones = phones, emails = emails,
+				phones = phones,
+				emails = emails,
 				addresses = address,
 				urls = contactInfo?.urls ?: emptyList()
 			)
@@ -49,21 +50,40 @@ val Barcode.domainType: BarCodeTypes
 			body = email?.body
 		)
 
-		Barcode.TYPE_PHONE -> BarCodeTypes.Phone(number = phone?.number)
+		Barcode.TYPE_PHONE -> BarCodeTypes.Phone(
+			number = phone?.number
+		)
+
 		Barcode.TYPE_SMS -> BarCodeTypes.Sms(
 			message = sms?.message,
 			phoneNumber = sms?.phoneNumber
 		)
 
-		Barcode.TYPE_TEXT -> BarCodeTypes.Text(text = displayValue ?: "")
-		Barcode.TYPE_URL -> BarCodeTypes.UrlBookMark(title = url?.title, url = url?.url)
+		Barcode.TYPE_TEXT -> BarCodeTypes.Text(
+			text = displayValue ?: ""
+		)
+
+		Barcode.TYPE_URL -> BarCodeTypes.UrlBookMark(
+			title = url?.title,
+			url = url?.url
+		)
+
 		Barcode.TYPE_WIFI -> BarCodeTypes.WiFi(
 			ssid = wifi?.ssid,
 			password = wifi?.password,
-			encryptionType = wifi?.encryptionType ?: -1
+			encryptionType = when (wifi?.encryptionType) {
+				1 -> BarCodeTypes.WiFi.WifiEncryptionType.OPEN
+				2 -> BarCodeTypes.WiFi.WifiEncryptionType.WPA
+				3 -> BarCodeTypes.WiFi.WifiEncryptionType.WEP
+				else -> BarCodeTypes.WiFi.WifiEncryptionType.UNKNOWN
+			}
 		)
 
-		Barcode.TYPE_GEO -> BarCodeTypes.GeoPoint(lat = geoPoint?.lat, long = geoPoint?.lng)
+		Barcode.TYPE_GEO -> BarCodeTypes.GeoPoint(
+			lat = geoPoint?.lat,
+			long = geoPoint?.lng
+		)
+
 		Barcode.TYPE_DRIVER_LICENSE -> BarCodeTypes.DriverLicense(
 			documentType = driverLicense?.documentType,
 			firstName = driverLicense?.firstName,

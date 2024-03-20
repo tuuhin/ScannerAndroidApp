@@ -8,8 +8,7 @@ sealed class BarCodeTypes(val codeType: Int) {
 		val address: String? = null,
 		val subject: String? = null,
 		val body: String? = null
-	) :
-		BarCodeTypes(codeType = Barcode.TYPE_EMAIL)
+	) : BarCodeTypes(codeType = Barcode.TYPE_EMAIL)
 
 	data class Phone(val number: String? = null) :
 		BarCodeTypes(codeType = Barcode.TYPE_PHONE)
@@ -23,9 +22,12 @@ sealed class BarCodeTypes(val codeType: Int) {
 	data class WiFi(
 		val ssid: String? = null,
 		val password: String? = null,
-		val encryptionType: Int
-	) :
-		BarCodeTypes(codeType = Barcode.TYPE_WIFI)
+		val encryptionType: WifiEncryptionType? = null
+	) : BarCodeTypes(codeType = Barcode.TYPE_WIFI) {
+		enum class WifiEncryptionType {
+			OPEN, WPA, WEP, UNKNOWN
+		}
+	}
 
 	data class Text(val text: String) :
 		BarCodeTypes(codeType = Barcode.TYPE_TEXT)

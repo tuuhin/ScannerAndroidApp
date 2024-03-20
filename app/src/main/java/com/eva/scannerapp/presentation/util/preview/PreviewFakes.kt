@@ -33,7 +33,7 @@ object PreviewFakes {
 		type = BarCodeTypes.WiFi(
 			ssid = "Network Name",
 			password = "Something",
-			encryptionType = 0
+			encryptionType = BarCodeTypes.WiFi.WifiEncryptionType.OPEN
 		),
 		displayText = "Network Name Something",
 		rawString = "WIFI:S:Network Name;T:WAP;P:Something;H:false;;",

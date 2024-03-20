@@ -35,7 +35,7 @@ class SettingsPreferencesImpl(
 
 	override suspend fun onSaveToExternalChanged(newValue: Boolean) {
 		context.datastore.edit { prefs ->
-			prefs[isSaveToExternalKey] = newValue
+			prefs[isSaveToExternalKey] = checkWritePerms && newValue
 		}
 	}
 
